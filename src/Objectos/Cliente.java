@@ -24,6 +24,11 @@ public class Cliente {
         this.cartaDeConducao = cartaDeConducao;
     }
 
+    public Cliente() {
+    }
+    
+    
+
     public int getIdCliente() {
         return idCliente;
     }

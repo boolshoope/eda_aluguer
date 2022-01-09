@@ -26,6 +26,11 @@ public class Aluguer {
         this.dataFim = dataFim;
     }
 
+    public Aluguer() {
+    }
+    
+    
+
     public int getIdAluguer() {
         return idAluguer;
     }
