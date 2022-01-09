@@ -5,6 +5,8 @@
  */
 package eda_aluguer;
 
+import BaseDeDados.BD;
+
 /**
  *
  * @author isacl
@@ -16,6 +18,7 @@ public class EDA_Aluguer {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
     }
     
 }

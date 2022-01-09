@@ -93,6 +93,11 @@ public class Automovel {
     public void setAnoAquisicao(int anoAquisicao) {
         this.anoAquisicao = anoAquisicao;
     }
+
+    @Override
+    public String toString() {
+        return "Automovel{" + "idAutomovel=" + idAutomovel + ", cor=" + cor + ", marca=" + marca + '}';
+    }
     
     
 }

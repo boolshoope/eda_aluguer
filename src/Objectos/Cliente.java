@@ -64,6 +64,9 @@ public class Cliente {
         this.cartaDeConducao = cartaDeConducao;
     }
     
-    
+    @Override
+    public String toString(){
+        return "nome: " + nome + " morada: " + morada;
+    }
     
 }

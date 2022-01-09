@@ -5,23 +5,33 @@
  */
 package Objectos;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author isacl
  */
 public class Aluguer {
+    private int idAluguer;
     private int idCliente;
     private int idAutomovel;
     private Date dataInicio;
     private Date dataFim;
 
-    public Aluguer(int idCliente, int idAutomovel, Date dataInicio, Date dataFim) {
+    public Aluguer(int idAluguer, int idCliente, int idAutomovel, Date dataInicio, Date dataFim) {
+        this.idAluguer = idAluguer;
         this.idCliente = idCliente;
         this.idAutomovel = idAutomovel;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
+    }
+
+    public int getIdAluguer() {
+        return idAluguer;
+    }
+
+    public void setIdAluguer(int idAluguer) {
+        this.idAluguer = idAluguer;
     }
 
     public int getIdCliente() {
@@ -55,6 +65,11 @@ public class Aluguer {
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Aluguer{" + "idAluguer=" + idAluguer + ", idCliente=" + idCliente + ", idAutomovel=" + idAutomovel + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + '}';
+    }
+
     
 }
