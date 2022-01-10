@@ -1,10 +1,12 @@
 
 package Operacoes;
+import Objectos.*;
 import java.io.*;
-import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.LinkedList;
 
 public class Validar {
      BufferedReader x  = new BufferedReader(new InputStreamReader(System.in));
@@ -97,36 +99,92 @@ public class Validar {
     }
     
     
-    public String validarData() throws IOException{
+   public Date validarData(String t) throws IOException, ParseException{
         String data; 
-        /*int dia, mes, ano;
-        dia = validarInt(1,31,"Introduza o Dia:  ");
-        mes = validarInt(1,31,"Introduza o mes (O numero correspondente):  ");
-        ano = validarInt(2020, 2021,"Introduza o Ano:  ");*/
-                
-        Date d = new Date();
+        System.out.println(t);
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-        DateFormat df = DateFormat.getDateInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
         cal.set(Calendar.DAY_OF_MONTH, validarInt(1,31,"Introduza o Dia:  "));
-        cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente:  "));
+        cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente):  "));
         cal.set(Calendar.DAY_OF_YEAR,validarInt(2020, 2021,"Introduza o Ano:  "));     
         
         data  = sdf.format(cal);
+        Date d = sdf.parse(data);
         
-        //data = dia+"-"+mes+"-"+ano;
-        return data;
+        return d;
     }
     
-    public String validarHora () throws IOException{
-        String horas;
-        Date data = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        data.setHours(validarByte((byte)1,(byte)24,"Introduza a Hora:"));
-        data.setMinutes(validarByte((byte)0,(byte)60,"Introduza os Minutos:"));
-        horas = sdf.format(data);
-        return horas;
+    public int validarID(LinkedList lista, String tipo) throws IOException{
+        int id = 0; boolean ex = false; byte opcao;
+        
+        switch (tipo){
+            case "a":
+                Automovel a;
+                do{
+                    id = validarInt(100, 999, "Identificacao do Automovel: ");
+                    for (int i = 0; i < lista.size(); i++){
+                        a = (Automovel) lista.get(i);
+                        if (a.getIdAutomovel() == id){
+                            ex = true;
+                            return id;
+                        }
+                        if((i == lista.size() - 1) && ex == false){
+                            opcao = validarByte((byte)0, (byte)1,"Automovel Nao Identificado."+
+                                                                  "\n1. Introduzir Novamente"+
+                                                                  "\n0. Cancelar Procedimento");
+                            if (opcao == 0)
+                                return 0;
+                        }
+                    }
+                }while (ex == false);
+                break;
+            
+            case "c":
+                Cliente c;
+                do{
+                    id = validarInt(100, 999, "Identificacao do Cliente: ");
+                    for (int i = 0; i < lista.size(); i++){
+                        c = (Cliente) lista.get(i);
+                        if (c.getIdCliente() == id){
+                            ex = true;
+                            return id;
+                        }
+                        if((i == lista.size() - 1) && ex == false){
+                            opcao = validarByte((byte)0, (byte)1,"Cliente Nao Identificado."+
+                                                                  "\n1. Introduzir Novamente"+
+                                                                  "\n0. Cancelar Procedimento");
+                            if (opcao == 0)
+                                return 0;
+                        }
+                    }
+                }while (ex == false);
+                break;
+             
+            case "al":
+                Aluguer al;
+                do{
+                    id = validarInt(100, 999, "Identificacao do Aluguer: ");
+                    for (int i = 0; i < lista.size(); i++){
+                        al = (Aluguer) lista.get(i);
+                        if (al.getIdAluguer() == id){
+                            ex = true;
+                            return id;
+                        }
+                        if((i == lista.size() - 1) && ex == false){
+                            opcao = validarByte((byte)0, (byte)1,"Aluguer Nao Identificado."+
+                                                                  "\n1. Introduzir Novamente"+
+                                                                  "\n0. Cancelar Procedimento");
+                            if (opcao == 0)
+                                return 0;
+                        }
+                    }
+                }while (ex == false);
+                break;
+        }
+        
+       return id;
     }
+
     
    
     

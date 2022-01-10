@@ -17,8 +17,9 @@ public class Aluguer {
     private int idAutomovel;
     private Date dataInicio;
     private Date dataFim;
+    private double valor;
 
-    public Aluguer(int idAluguer, int idCliente, int idAutomovel, Date dataInicio, Date dataFim) {
+    public Aluguer(int idAluguer, int idCliente, int idAutomovel, Date dataInicio, Date dataFim, double valor) {
         this.idAluguer = idAluguer;
         this.idCliente = idCliente;
         this.idAutomovel = idAutomovel;
@@ -70,10 +71,18 @@ public class Aluguer {
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
+    
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 
     @Override
     public String toString() {
-        return "Aluguer{" + "idAluguer=" + idAluguer + ", idCliente=" + idCliente + ", idAutomovel=" + idAutomovel + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + '}';
+        return "Aluguer{" + "idAluguer=" + idAluguer + ", idCliente=" + idCliente + ", idAutomovel=" + idAutomovel + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + ", valor="+valor;
     }
 
     
