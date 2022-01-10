@@ -9,9 +9,10 @@ import Objectos.*;
 import static eda_aluguer.Menu.lstAluguer;
 import static eda_aluguer.Menu.lstAutomovel;
 import static eda_aluguer.Menu.lstCliente;
+import Objectos.Automovel;
+import Objectos.Cliente;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
 
 /**
  *
@@ -19,37 +20,61 @@ import java.util.logging.Logger;
  */
 public class Editar {
 
-    Validar v = new Validar();
+    private Validar va;
+    private Cliente c;
+    private Automovel a;
 
-    public void EditCliente() {
-        try {
-            Cliente tmp;
-            int id, pos;
-            id = (int) v.validarInt(1, 9999, "ID(disciplina): ");
+    public Editar() {
+        va = new Validar();
+        c = new Cliente();
+        a = new Automovel();
+    }
 
-            pos = -1;
-            for (int i = 0; i < lstCliente.size(); i++) {
-                tmp = (Cliente) lstCliente.get(i);
-                if (tmp.getIdCliente() == id) {
-                    pos = i;
-                    break;
-                }
+    public void alterarCliente(LinkedList<Cliente> cliente) throws IOException {
+        int idC;
+        boolean existe = true;
+
+        idC = va.validarInt(0, 999, "ID do cliente que pretende alterar suas informacoes: ");
+        for (int i = 0; i < cliente.size(); i++) {
+            if (cliente.get(i).getIdCliente() == idC) {
+                existe = true;
+
+                c.setNome(va.validarString(3, 50, "Nome do Cliente: "));
+                c.setBi(va.validarString(3, 15, "Numero de BI: "));
+                c.setMorada(va.validarString(3, 50, "Morada/Endereco do Cliente: "));
+                c.setCartaDeConducao(va.validarString(3, 50, "Carta de Conducao: "));
+                cliente.set(i, c);
+                System.out.print("Dados do(a) Cliente " + cliente.get(i).getIdCliente() + " Alteraos Com Sucesso ");
+            }
+        }
+        if (existe == false) {
+            System.out.println("CLIENTE NAO CADASTRADO");
+        }
+
+    }
+
+    public void alterarAutomovel(LinkedList<Automovel> automovel) throws IOException {
+        int idAutomovel;
+        boolean existe = true;
+
+        idAutomovel = va.validarInt(0, 999, "ID do Automovel que pretende alterar suas informacoes: ");
+        for (int i = 0; i < automovel.size(); i++) {
+            if (automovel.get(i).getIdAutomovel() == idAutomovel) {
+                existe = true;
+                a.setMarca(va.validarString(3, 20, "Marca do Automovel: "));
+                a.setMatricula(va.validarString(3, 20, "Matricula do Automovel: "));
+                a.setModelo(va.validarString(3, 50, "Modelo do Automovel: "));
+                a.setAnoAquisicao(va.validarInt(1900, 2022, "Ano de Aquisicao: "));
+                a.setCilindrada(va.validarString(3, 50, "Clindrada do Automovel: "));
+                a.setCor(va.validarString(3, 20, "Cor do Automovel: "));
+                a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
+                automovel.set(i, a);
+                System.out.print("Dados Do Automovel Alterados ");
             }
 
-            if (pos == -1) {
-                System.out.println("Cliente nao registrado.");
-                return;
+            if (existe == false) {
+                System.out.println("AUTOMOVEL NAO CADASTRADO..");
             }
-
-            tmp = (Cliente) lstCliente.get(pos);
-
-            String nome = v.validarString(1, 999, "Nome: ");
-
-            tmp.setNome(nome);
-
-            lstCliente.set(pos, tmp);
-        } catch (IOException ex) {
-            System.out.println("" + ex.toString());
         }
     }
 

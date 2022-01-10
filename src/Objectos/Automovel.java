@@ -30,6 +30,10 @@ public class Automovel {
         this.anoAquisicao = anoAquisicao;
     }
 
+    public Automovel() {
+    }
+
+    
     public int getIdAutomovel() {
         return idAutomovel;
     }
