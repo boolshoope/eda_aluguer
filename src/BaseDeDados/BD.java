@@ -66,7 +66,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-                alug = new Aluguer(rs.getInt("idAluguer"),rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"));
+                alug = new Aluguer(rs.getInt("idAluguer"),rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"), rs.getDouble("valor"));
                 lstAlug.add(alug);
             }
 
@@ -121,13 +121,15 @@ public class BD {
     }
     
     public void addAluguer(Aluguer a) {
-        String query = "INSERT INTO aluguer(idCliente,idAutomovel,dataInicio,dataFim) VALUES(?,?,?,?);";
+        String query = "INSERT INTO aluguer(idAluguer,idCliente,idAutomovel,dataInicio,dataFim,valor) VALUES(?,?,?,?,?,?);";
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
-            stmt.setInt(1, a.getIdCliente());
-            stmt.setInt(2, a.getIdAutomovel());
-            stmt.setDate(3, a.getDataInicio());
-            stmt.setDate(4, a.getDataFim());
+            stmt.setInt(1, a.getIdAluguer());
+            stmt.setInt(2, a.getIdCliente());
+            stmt.setInt(3, a.getIdAutomovel());
+            stmt.setDate(4, a.getDataInicio());
+            stmt.setDate(5, a.getDataFim());
+            stmt.setDouble(6, a.getValor());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
@@ -173,7 +175,7 @@ public class BD {
     }
     
     public void updAluguer(Aluguer a) {
-        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=? where idAluguer=" + a.getIdAluguer();
+        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" + a.getIdAluguer();
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -181,6 +183,7 @@ public class BD {
             stmt.setInt(2, a.getIdAutomovel());
             stmt.setDate(3, a.getDataInicio());
             stmt.setDate(4, a.getDataFim());
+            stmt.setDouble(5, a.getValor());
             stmt.execute();
 
             System.out.println("Aluguer actualizado com sucesso ");

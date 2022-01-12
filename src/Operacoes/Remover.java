@@ -5,9 +5,8 @@
  */
 package Operacoes;
 
-import Objectos.Aluguer;
-import Objectos.Automovel;
-import Objectos.Cliente;
+import BaseDeDados.BD;
+import Objectos.*;
 import java.util.*;
 import java.io.*;
 
@@ -19,6 +18,7 @@ import java.io.*;
 public class Remover {
     
     private Validar va;
+    private BD bd;
   
     public Remover(){
         va = new Validar();
@@ -32,6 +32,7 @@ public class Remover {
        for(int i=0;i<cliente.size();i++){
            if(cliente.get(i).getIdCliente() == idC){
                 existe = true;
+                bd.delCliente(cliente.get(i));
                 cliente.remove(i);             
                System.out.print("Dados do(a) Cliente "+cliente.get(i).getNome()+" Removidos. ");
            }
@@ -46,11 +47,12 @@ public class Remover {
         
         int idA;
         boolean existe =  false;
-       idA = va.validarInt(0, 999, "ID do Atomovel que pretende eliminar suas informacoes: ");
+       idA = va.validarInt(0, 999, "ID do Automovel que pretende eliminar suas informacoes: ");
        for(int i=0;i<automovel.size();i++){
            if(automovel.get(i).getIdAutomovel() == idA){
                existe = true;
                automovel.remove(i);
+               bd.delAutomovel(automovel.get(i));
                System.out.print("Dados Do Automovel Removidos. ");
            }
            
@@ -59,6 +61,23 @@ public class Remover {
        }
        }
     
+    }
+    
+    public void removerAluguer(LinkedList <Aluguer> aluguer) throws IOException{
+        boolean ex = false;
+        
+        int idAl = va.validarID(aluguer, "al");
+        for (int i = 0; i < aluguer.size(); i++){
+            if(aluguer.get(i).getIdAluguer() == idAl){
+                    aluguer.remove(i);
+                    bd.delAluguer(aluguer.get(i));
+                    System.out.println("Aluguer Eliminado.");
+                    ex = true;
+                    break;
+                }
+            if((i == aluguer.size() - 1) && ex == false)
+                System.out.println("Aluguer Nao Identificado.");
+        }
     }
     
 }

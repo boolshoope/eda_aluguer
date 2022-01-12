@@ -14,7 +14,6 @@ import java.util.LinkedList;
  * @author isacl
  */
 public class Menu {
-
     public static LinkedList<Aluguer> lstAluguer;
     public static LinkedList<Automovel> lstAutomovel;
     public static LinkedList<Cliente> lstCliente;
@@ -159,3 +158,5 @@ public class Menu {
         }
     }
 }
+    
+
