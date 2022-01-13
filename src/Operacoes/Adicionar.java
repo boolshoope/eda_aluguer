@@ -29,6 +29,7 @@ public class Adicionar {
      
         r = new Random();
         va = new Validar();
+        bd = new BD();
         
        
     }
@@ -43,7 +44,7 @@ public class Adicionar {
         cliente.add(c);
         bd.addCliente(c);
         
-        System.out.println("Aluguer Registado. Identificacao de Aluguer: "+c.getIdCliente());
+        System.out.println("\nAluguer Registado. Identificacao de Aluguer: "+c.getIdCliente());
     
     }
     
@@ -59,7 +60,7 @@ public class Adicionar {
         a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
         automovel.add(a);  
         bd.addAutomovel(a);
-        System.out.println("Automovel Registado. Identificacao de Aut0r: "+a.getIdAutomovel());
+        System.out.println("\nAutomovel Registado. Identificacao de Autovel: "+a.getIdAutomovel());
         
         
     }
@@ -82,7 +83,7 @@ public class Adicionar {
             }
         }while(fim.after(inicio) == false);
         al.setValor(calculoValor());
-        System.out.println("Aluguer Registado.\nIdentificacao de Aluguer: "+al.getIdAluguer()+"\nValor de Aluguer: "+al.getValor());
+        System.out.println("\nAluguer Registado.\nIdentificacao de Aluguer: "+al.getIdAluguer()+"\nValor de Aluguer: "+al.getValor());
         aluguer.add(al);
         bd.addAluguer(al);
     }

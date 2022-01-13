@@ -8,37 +8,48 @@ package eda_aluguer;
 import BaseDeDados.BD;
 import Objectos.*;
 import java.util.LinkedList;
+import Operacoes.*;
+import Operacoes.Validar;
+import java.io.IOException;
+import java.text.ParseException;
 
 /**
  *
  * @author isacl
  */
+
 public class Menu {
     public static LinkedList<Aluguer> lstAluguer;
     public static LinkedList<Automovel> lstAutomovel;
     public static LinkedList<Cliente> lstCliente;
+    public static Adicionar add  = new Adicionar();
+    public static Editar edit  = new Editar();
+    public static Remover remove  = new Remover();
+    public static Visualizar visualizar  = new Visualizar();
+    
+    public static Validar va = new Validar();
 
     private static int opEsc;
 
-    static void MainMenu() {
+   static void MainMenu() throws IOException, ParseException {
         InicializarLista();
 
         int opEsc = 0;
-        System.out.println("|*********** Sistema do Aluguer de uma Frota de Automóveis ***********|");
+        System.out.println("|*********** SISTEMA DE ALUGUER DE UMA FROTA DE AUTOMOVEIS ***********|");
 
         do {
-            System.out.println("|*********** MENU PRINCIPAL ***********|");
+            System.out.println("\n|*********** MENU PRINCIPAL ***********|\n");
             System.out.println("Selecione a opção:");
             System.out.println("1. Inserir");
             System.out.println("2. Alterar");
             System.out.println("3. Listagem");
             System.out.println("4. Eliminar");
-            System.out.println("5. Sair");
+            System.out.println("5. Sair\n");
 
-            //opEsc = (int) Validar.numero("-> ", 1, 5);
+            opEsc = va.validarInt(0,5, ">> Sua Opcao:\t");
             switch (opEsc) {
                 case 1:
-                    System.out.println("|**** Inserir ****|");
+                    System.out.println("|**** Inserir ****|\n");
                     MainCase1();
                     break;
                 case 2:
@@ -70,92 +81,113 @@ public class Menu {
         lstCliente = bd.getCiente();
     }
 
-    static void MainCase1() {
-        System.out.println("Selecione a opção:");
-        System.out.println("1. Alugueres");
-        System.out.println("2. Clientes");
-        System.out.println("3. Automóveis");
-        System.out.println("4. Voltar");
+    static void MainCase1() throws IOException, ParseException {
+        
+        do{
+        System.out.println("\nSelecione a opção:");
+        System.out.println("1. Adicionar Alugueres");
+        System.out.println("2. Adicionar Clientes");
+        System.out.println("3. Adicionar Automóveis");
+        System.out.println("4. Voltar\n");
 
-        //opEsc = (int) Validar.numero("-> ", 1, 4);
-        switch (opEsc) {
-            case 1:
-                System.out.println("|**** Adicionar Alugueres ****|");
-
-                break;
-            case 2:
-                System.out.println("\n|**** Adicionar Clientes ****|");
-                break;
-            case 3:
-                System.out.println("\n|**** Adicionar Automóveis ****|");
-                break;
-        }
+        opEsc = va.validarInt(0,4, ">> Sua Opcao:\t");
+        
+            switch (opEsc) {
+                case 1:
+                    System.out.println("|**** Adicionar Alugueres ****|\n");
+                  add.addAluguer(lstAluguer, lstAutomovel, lstCliente);
+                    break;
+                case 2:
+                    System.out.println("\n|**** Adicionar Clientes ****|\n");
+                    add.addCliente(lstCliente);
+                    break;
+                case 3:
+                    System.out.println("\n|**** Adicionar Automóveis ****|\n");
+                     add.addAutomovel(lstAutomovel);
+                    break;
+            }
+        }while(opEsc != 4);
     }
 
-    static void MainCase2() {
-        System.out.println("Selecione a opção:");
-        System.out.println("1. Alugueres");
-        System.out.println("2. Clientes");
-        System.out.println("3. Automóveis");
-        System.out.println("4. Voltar");
+    static void MainCase2() throws IOException {
+        
+        do{
+        System.out.println("\nSelecione a opção:");
+        System.out.println("1. Alterar Alugueres");
+        System.out.println("2. Alterar Clientes");
+        System.out.println("3. Alterar Automóveis");
+        System.out.println("4. Voltar\n");
 
-        //opEsc = (int) Validar.numero("-> ", 1, 4);
-        switch (opEsc) {
-            case 1:
-                System.out.println("|**** Alterar Alugueres ****|");
-
-                break;
-            case 2:
-                System.out.println("\n|**** Alterar Clientes ****|");
-                break;
-            case 3:
-                System.out.println("\n|**** Alterar Automóveis ****|");
-                break;
-        }
+          opEsc = va.validarInt(0,4, ">> Sua Opcao:\t");
+        
+            switch (opEsc) {
+                case 1:
+                    System.out.println("|**** Alterar Alugueres ****|");
+                    //edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, tipo);
+                    break;
+                case 2:
+                    System.out.println("\n|**** Alterar Clientes ****|");
+                    edit.alterarCliente(lstCliente);
+                    break;
+                case 3:
+                    System.out.println("\n|**** Alterar Automóveis ****|");
+                    edit.alterarAutomovel(lstAutomovel);
+                    break;
+            }
+        }while(opEsc != 4);
     }
 
-    static void MainCase3() {
-        System.out.println("Selecione a opção:");
-        System.out.println("1. Alugueres");
-        System.out.println("2. Clientes");
-        System.out.println("3. Automóveis");
-        System.out.println("4. Voltar");
+    static void MainCase3() throws IOException {
+        
+        do{
+            System.out.println("\nSelecione a opção:");
+            System.out.println("1. Listagem de Alugueres");
+            System.out.println("2. Listagem de Clientes");
+            System.out.println("3. Listagem de Automóveis");
+            System.out.println("4. Voltar\n");
 
-        //opEsc = (int) Validar.numero("-> ", 1, 4);
-        switch (opEsc) {
-            case 1:
-                System.out.println("|**** Listar Alugueres ****|");
+             opEsc = va.validarInt(0,4, ">> Sua Opcao:\t");
+            switch (opEsc) {
+                case 1:
+                    System.out.println("|**** Listar Alugueres ****|");
 
-                break;
-            case 2:
-                System.out.println("\n|**** Listar Clientes ****|");
-                break;
-            case 3:
-                System.out.println("\n|**** Listar Automóveis ****|");
-                break;
-        }
+                    break;
+                case 2:
+                    System.out.println("\n|**** Listar Clientes ****|");
+                    break;
+                case 3:
+                    System.out.println("\n|**** Listar Automóveis ****|");
+                    break;
+            }
+        }while(opEsc != 4);
     }
 
-    static void MainCase4() {
-        System.out.println("Selecione a opção:");
-        System.out.println("1. Alugueres");
-        System.out.println("2. Clientes");
-        System.out.println("3. Automóveis");
-        System.out.println("4. Voltar");
+    static void MainCase4() throws IOException {
+        
+        do{
+            System.out.println("\nSelecione a opção:");
+            System.out.println("1. Eliminar Alugueres");
+            System.out.println("2. Eliminar Clientes");
+            System.out.println("3. Eliminar Automóveis");
+            System.out.println("4. Voltar\n");
 
-        //opEsc = (int) Validar.numero("-> ", 1, 4);
-        switch (opEsc) {
-            case 1:
-                System.out.println("|**** Eliminar Alugueres ****|");
+          opEsc = va.validarInt(0,4, ">> Sua Opcao:\t");
+            switch (opEsc) {
+                case 1:
+                    System.out.println("|**** Eliminar Alugueres ****|");
+                   // remove.RemoverAutomovel(lstAutomovel);
 
-                break;
-            case 2:
-                System.out.println("\n|**** Eliminar Clientes ****|");
-                break;
-            case 3:
-                System.out.println("\n|**** Eliminar Automóveis ****|");
-                break;
-        }
+                    break;
+                case 2:
+                    System.out.println("\n|**** Eliminar Clientes ****|");
+                    remove.RemoverCliente(lstCliente);
+                    break;
+                case 3:
+                    System.out.println("\n|**** Eliminar Automóveis ****|");
+                   // remove.removerAluguer(lstAluguer);
+                    break;
+         }
+        }while(opEsc != 4);
     }
 }
     

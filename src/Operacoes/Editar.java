@@ -31,6 +31,7 @@ public class Editar {
         va = new Validar();
         c = new Cliente();
         a = new Automovel();
+        bd = new BD();
     }
     
     
@@ -43,18 +44,18 @@ public class Editar {
          for(int i=0;i<cliente.size();i++){
            if(cliente.get(i).getIdCliente() == idC){
                 existe = true;
-              
+                System.out.println("\nIntroduza os novos dados do cliente:");
                 c.setNome(va.validarString(3, 50, "Nome do Cliente: "));
                 c.setBi(va.validarString(3, 15, "Numero de BI: "));
                 c.setMorada(va.validarString(3, 50, "Morada/Endereco do Cliente: "));
                 c.setCartaDeConducao(va.validarString(3, 50, "Carta de Conducao: "));
                 cliente.set(i, c); 
                 bd.updCliente(c);
-                System.out.print("Dados do(a) Cliente "+cliente.get(i).getIdCliente()+" Alteraos Com Sucesso ");
+                System.out.print("\nDados do(a) Cliente "+cliente.get(i).getIdCliente()+" Alterados Com Sucesso \n");
            }
        }
        if(existe == false){
-            System.out.println("CLIENTE NAO CADASTRADO");
+            System.out.println("\nCLIENTE NAO CADASTRADO");
        }
     
     
@@ -68,6 +69,7 @@ public class Editar {
         for(int i=0;i<automovel.size();i++){
            if(automovel.get(i).getIdAutomovel() == idAutomovel){
                existe = true;
+                System.out.println("\nIntroduza os novos dados do automovel:");
                 a.setMarca(va.validarString(3, 20, "Marca do Automovel: " ));
                 a.setMatricula(va.validarString(3, 20, "Matricula do Automovel: "));
                 a.setModelo(va.validarString(3, 50, "Modelo do Automovel: "));
@@ -77,7 +79,7 @@ public class Editar {
                 a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
                 automovel.set(i, a);
                 bd.updAutomovel(a);
-                System.out.print("Dados Do Automovel Alterados ");
+                System.out.println("\nDados Do Automovel Alterados \n");
            }
            
            if(existe == false)

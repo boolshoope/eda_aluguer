@@ -106,8 +106,8 @@ public class Validar {
         SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
         cal.set(Calendar.DAY_OF_MONTH, validarInt(1,31,"Introduza o Dia:  "));
         cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente):  "));
-        cal.set(Calendar.DAY_OF_YEAR,validarInt(2020, 2021,"Introduza o Ano:  "));     
-        
+        cal.set(Calendar.YEAR,validarInt(2020, 2022,"Introduza o Ano:  "));     
+       
         data  = sdf.format(cal);
         Date d = sdf.parse(data);
         
@@ -121,7 +121,7 @@ public class Validar {
             case "a":
                 Automovel a;
                 do{
-                    id = validarInt(100, 999, "Identificacao do Automovel: ");
+                    id = validarInt(0, 999, "Identificacao do Automovel: ");
                     for (int i = 0; i < lista.size(); i++){
                         a = (Automovel) lista.get(i);
                         if (a.getIdAutomovel() == id){
@@ -142,7 +142,7 @@ public class Validar {
             case "c":
                 Cliente c;
                 do{
-                    id = validarInt(100, 999, "Identificacao do Cliente: ");
+                    id = validarInt(0, 999, "Identificacao do Cliente: ");
                     for (int i = 0; i < lista.size(); i++){
                         c = (Cliente) lista.get(i);
                         if (c.getIdCliente() == id){
@@ -163,7 +163,7 @@ public class Validar {
             case "al":
                 Aluguer al;
                 do{
-                    id = validarInt(100, 999, "Identificacao do Aluguer: ");
+                    id = validarInt(0, 999, "Identificacao do Aluguer: ");
                     for (int i = 0; i < lista.size(); i++){
                         al = (Aluguer) lista.get(i);
                         if (al.getIdAluguer() == id){

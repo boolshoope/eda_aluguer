@@ -22,6 +22,7 @@ public class Remover {
   
     public Remover(){
         va = new Validar();
+        bd = new BD();
     }
     
     public void RemoverCliente(LinkedList<Cliente> cliente) throws IOException{
@@ -34,11 +35,11 @@ public class Remover {
                 existe = true;
                 bd.delCliente(cliente.get(i));
                 cliente.remove(i);             
-               System.out.print("Dados do(a) Cliente "+cliente.get(i).getNome()+" Removidos. ");
+               System.out.print("Dados do(a) Cliente "+cliente.get(i).getNome()+" Removidos.\n");
            }
        }
        if(existe == false){
-            System.out.println("O CLIENTE QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO..");
+            System.out.println("O CLIENTE QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO..\n");
        }
     
     }
@@ -53,11 +54,11 @@ public class Remover {
                existe = true;
                automovel.remove(i);
                bd.delAutomovel(automovel.get(i));
-               System.out.print("Dados Do Automovel Removidos. ");
+               System.out.print("Dados Do Automovel Removidos.\n");
            }
            
            if(existe == false){
-            System.out.println("O AUTOMOVEL QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO..");
+            System.out.println("O AUTOMOVEL QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO.\n");
        }
        }
     

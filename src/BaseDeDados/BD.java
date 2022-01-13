@@ -91,7 +91,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-                aut = new Automovel(rs.getInt("idCliente"), rs.getString("cor"), rs.getString("marca"), rs.getString("modelo"),
+                aut = new Automovel(rs.getInt("idAutomovel"), rs.getString("cor"), rs.getString("marca"), rs.getString("modelo"),
                         rs.getString("cilindrada"), rs.getDouble("valorDia"), rs.getString("matricula"), rs.getInt("anoAquisicao"));
                 lstAut.add(aut);
             }

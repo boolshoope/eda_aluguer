@@ -10,5 +10,5 @@ package Operacoes;
  * @author isacl
  */
 public class Visualizar {
-    
+     
 }
