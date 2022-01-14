@@ -49,7 +49,7 @@ public class Menu {
             opEsc = va.validarInt(0,5, ">> Sua Opcao:\t");
             switch (opEsc) {
                 case 1:
-                    System.out.println("|**** Inserir ****|\n");
+                    System.out.println("\n|**** Inserir ****|");
                     MainCase1();
                     break;
                 case 2:
@@ -113,9 +113,9 @@ public class Menu {
         
         do{
         System.out.println("\nSelecione a opção:");
-        System.out.println("1. Alterar Alugueres");
-        System.out.println("2. Alterar Clientes");
-        System.out.println("3. Alterar Automóveis");
+        System.out.println("1. Alterar Informacoes Sobre  Alugueres");
+        System.out.println("2. Alterar Infomacoes Sobre  Clientes");
+        System.out.println("3. Alterar Informacoes Sobre Automóveis");
         System.out.println("4. Voltar\n");
 
           opEsc = va.validarInt(0,4, ">> Sua Opcao:\t");
@@ -150,13 +150,15 @@ public class Menu {
             switch (opEsc) {
                 case 1:
                     System.out.println("|**** Listar Alugueres ****|");
-
+                    visualizar.visAlugueres(lstAluguer);
                     break;
                 case 2:
                     System.out.println("\n|**** Listar Clientes ****|");
+                    visualizar.visClientes(lstCliente);
                     break;
                 case 3:
                     System.out.println("\n|**** Listar Automóveis ****|");
+                    visualizar.visAutomovel(lstAutomovel);
                     break;
             }
         }while(opEsc != 4);
@@ -175,16 +177,15 @@ public class Menu {
             switch (opEsc) {
                 case 1:
                     System.out.println("|**** Eliminar Alugueres ****|");
-                   // remove.RemoverAutomovel(lstAutomovel);
-
+                    // remove.removerAluguer(lstAluguer);
                     break;
                 case 2:
                     System.out.println("\n|**** Eliminar Clientes ****|");
                     remove.RemoverCliente(lstCliente);
                     break;
                 case 3:
-                    System.out.println("\n|**** Eliminar Automóveis ****|");
-                   // remove.removerAluguer(lstAluguer);
+                    System.out.println("\n|**** Eliminar Automóveis ****|");                 
+                    remove.RemoverAutomovel(lstAutomovel);
                     break;
          }
         }while(opEsc != 4);

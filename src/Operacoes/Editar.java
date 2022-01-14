@@ -50,8 +50,8 @@ public class Editar {
                 c.setMorada(va.validarString(3, 50, "Morada/Endereco do Cliente: "));
                 c.setCartaDeConducao(va.validarString(3, 50, "Carta de Conducao: "));
                 cliente.set(i, c); 
-                bd.updCliente(c);
-                System.out.print("\nDados do(a) Cliente "+cliente.get(i).getIdCliente()+" Alterados Com Sucesso \n");
+                bd.updCliente(c,idC);
+                System.out.print("\nDados do(a) Cliente "+idC+" Alterados Com Sucesso \n");
            }
        }
        if(existe == false){
@@ -78,8 +78,8 @@ public class Editar {
                 a.setCor(va.validarString(3, 20, "Cor do Automovel: "));
                 a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
                 automovel.set(i, a);
-                bd.updAutomovel(a);
-                System.out.println("\nDados Do Automovel Alterados \n");
+                bd.updAutomovel(a, idAutomovel);
+                //System.out.println("\nDados Do Automovel Alterados \n");
            }
            
            if(existe == false)

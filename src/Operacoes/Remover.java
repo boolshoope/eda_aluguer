@@ -32,9 +32,9 @@ public class Remover {
        idC = va.validarInt(0, 999, "ID do cliente que pretende eliminar suas informacoes: ");
        for(int i=0;i<cliente.size();i++){
            if(cliente.get(i).getIdCliente() == idC){
-                existe = true;
+                existe = true;           
+                cliente.remove(i);  
                 bd.delCliente(cliente.get(i));
-                cliente.remove(i);             
                System.out.print("Dados do(a) Cliente "+cliente.get(i).getNome()+" Removidos.\n");
            }
        }

@@ -156,8 +156,8 @@ public class BD {
     }
 
     //update
-    public void updCliente(Cliente c) {
-        String query = "update cliente set nome=?,morada=?,bi=?,cartaDeConducao=? where idCliente=" + c.getIdCliente();
+    public void updCliente(Cliente c, int idCliente) {
+        String query = "update cliente set nome=?,morada=?,bi=?,cartaDeConducao=? where idCliente=" +idCliente;
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -175,7 +175,7 @@ public class BD {
     }
     
     public void updAluguer(Aluguer a) {
-        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" + a.getIdAluguer();
+        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" +a.getIdAluguer();
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -193,9 +193,9 @@ public class BD {
         }
     }
     
-    public void updAutomovel(Automovel a) {
+    public void updAutomovel(Automovel a, int idAutomovel) {
         String query = "update automovel set cor=?,marca=?,modelo=?,cilindrada=?,valorDia=?"
-                + ",matricula=?,anoAquisicao=? where idAutomovel=" + a.getIdAutomovel();
+                + ",matricula=?,anoAquisicao=? where idAutomovel=" + idAutomovel;
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -218,9 +218,9 @@ public class BD {
     //delete
     public void delCliente(Cliente c) {
         try {
-            String query = "delete from cliente where idCliente=?";
+            String query = "delete from cliente where idCliente= "+c.getIdCliente();
             PreparedStatement stmt = conexao.prepareStatement(query);
-            stmt.setInt(1, c.getIdCliente());
+            //stmt.setInt(1, c.getIdCliente());
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {

@@ -103,7 +103,7 @@ public class Validar {
         String data; 
         System.out.println(t);
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
         cal.set(Calendar.DAY_OF_MONTH, validarInt(1,31,"Introduza o Dia:  "));
         cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente):  "));
         cal.set(Calendar.YEAR,validarInt(2020, 2022,"Introduza o Ano:  "));     

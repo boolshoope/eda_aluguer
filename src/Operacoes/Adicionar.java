@@ -44,7 +44,7 @@ public class Adicionar {
         cliente.add(c);
         bd.addCliente(c);
         
-        System.out.println("\nAluguer Registado. Identificacao de Aluguer: "+c.getIdCliente());
+        System.out.println("\nAluguer Registado. Identificacao do Cliente: "+c.getIdCliente());
     
     }
     
