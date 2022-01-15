@@ -66,7 +66,11 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
+<<<<<<< HEAD
                 alug = new Aluguer(rs.getInt("idAluguer"), rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"));
+=======
+                alug = new Aluguer(rs.getInt("idAluguer"),rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"), rs.getDouble("valor"));
+>>>>>>> origin/master
                 lstAlug.add(alug);
             }
 
@@ -91,7 +95,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-                aut = new Automovel(rs.getInt("idCliente"), rs.getString("cor"), rs.getString("marca"), rs.getString("modelo"),
+                aut = new Automovel(rs.getInt("idAutomovel"), rs.getString("cor"), rs.getString("marca"), rs.getString("modelo"),
                         rs.getString("cilindrada"), rs.getDouble("valorDia"), rs.getString("matricula"), rs.getInt("anoAquisicao"));
                 lstAut.add(aut);
             }
@@ -129,13 +133,15 @@ public class BD {
     }
 
     public void addAluguer(Aluguer a) {
-        String query = "INSERT INTO aluguer(idCliente,idAutomovel,dataInicio,dataFim) VALUES(?,?,?,?);";
+        String query = "INSERT INTO aluguer(idAluguer,idCliente,idAutomovel,dataInicio,dataFim,valor) VALUES(?,?,?,?,?,?);";
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
-            stmt.setInt(1, a.getIdCliente());
-            stmt.setInt(2, a.getIdAutomovel());
-            stmt.setDate(3, a.getDataInicio());
-            stmt.setDate(4, a.getDataFim());
+            stmt.setInt(1, a.getIdAluguer());
+            stmt.setInt(2, a.getIdCliente());
+            stmt.setInt(3, a.getIdAutomovel());
+            stmt.setDate(4, a.getDataInicio());
+            stmt.setDate(5, a.getDataFim());
+            stmt.setDouble(6, a.getValor());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
@@ -162,8 +168,8 @@ public class BD {
     }
 
     //update
-    public void updCliente(Cliente c) {
-        String query = "update cliente set nome=?,morada=?,bi=?,cartaDeConducao=? where idCliente=" + c.getIdCliente();
+    public void updCliente(Cliente c, int idCliente) {
+        String query = "update cliente set nome=?,morada=?,bi=?,cartaDeConducao=? where idCliente=" +idCliente;
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -181,7 +187,7 @@ public class BD {
     }
 
     public void updAluguer(Aluguer a) {
-        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=? where idAluguer=" + a.getIdAluguer();
+        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" +a.getIdAluguer();
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -189,6 +195,7 @@ public class BD {
             stmt.setInt(2, a.getIdAutomovel());
             stmt.setDate(3, a.getDataInicio());
             stmt.setDate(4, a.getDataFim());
+            stmt.setDouble(5, a.getValor());
             stmt.execute();
 
             System.out.println("Aluguer actualizado com sucesso ");
@@ -197,10 +204,15 @@ public class BD {
             System.out.println("Erro de acualizacao de dados:: " + e.getMessage());
         }
     }
+<<<<<<< HEAD
 
     public void updAutomovel(Automovel a) {
+=======
+    
+    public void updAutomovel(Automovel a, int idAutomovel) {
+>>>>>>> origin/master
         String query = "update automovel set cor=?,marca=?,modelo=?,cilindrada=?,valorDia=?"
-                + ",matricula=?,anoAquisicao=? where idAutomovel=" + a.getIdAutomovel();
+                + ",matricula=?,anoAquisicao=? where idAutomovel=" + idAutomovel;
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -223,9 +235,9 @@ public class BD {
     //delete
     public void delCliente(Cliente c) {
         try {
-            String query = "delete from cliente where idCliente=?";
+            String query = "delete from cliente where idCliente= "+c.getIdCliente();
             PreparedStatement stmt = conexao.prepareStatement(query);
-            stmt.setInt(1, c.getIdCliente());
+            //stmt.setInt(1, c.getIdCliente());
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {

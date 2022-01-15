@@ -5,9 +5,8 @@
  */
 package Operacoes;
 
-import Objectos.Aluguer;
-import Objectos.Automovel;
-import Objectos.Cliente;
+import BaseDeDados.BD;
+import Objectos.*;
 import java.util.*;
 import java.io.*;
 
@@ -19,9 +18,11 @@ import java.io.*;
 public class Remover {
     
     private Validar va;
+    private BD bd;
   
     public Remover(){
         va = new Validar();
+        bd = new BD();
     }
     
     public void RemoverCliente(LinkedList<Cliente> cliente) throws IOException{
@@ -31,13 +32,14 @@ public class Remover {
        idC = va.validarInt(0, 999, "ID do cliente que pretende eliminar suas informacoes: ");
        for(int i=0;i<cliente.size();i++){
            if(cliente.get(i).getIdCliente() == idC){
-                existe = true;
-                cliente.remove(i);             
-               System.out.print("Dados do(a) Cliente "+cliente.get(i).getNome()+" Removidos. ");
+                existe = true;           
+                cliente.remove(i);  
+                bd.delCliente(cliente.get(i));
+               System.out.print("Dados do(a) Cliente "+cliente.get(i).getNome()+" Removidos.\n");
            }
        }
        if(existe == false){
-            System.out.println("O CLIENTE QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO..");
+            System.out.println("O CLIENTE QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO..\n");
        }
     
     }
@@ -46,19 +48,37 @@ public class Remover {
         
         int idA;
         boolean existe =  false;
-       idA = va.validarInt(0, 999, "ID do Atomovel que pretende eliminar suas informacoes: ");
+       idA = va.validarInt(0, 999, "ID do Automovel que pretende eliminar suas informacoes: ");
        for(int i=0;i<automovel.size();i++){
            if(automovel.get(i).getIdAutomovel() == idA){
                existe = true;
                automovel.remove(i);
-               System.out.print("Dados Do Automovel Removidos. ");
+               bd.delAutomovel(automovel.get(i));
+               System.out.print("Dados Do Automovel Removidos.\n");
            }
            
            if(existe == false){
-            System.out.println("O AUTOMOVEL QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO..");
+            System.out.println("O AUTOMOVEL QUE PRETENDE ELIMINAR NAO ESTA CADASTRADO.\n");
        }
        }
     
+    }
+    
+    public void removerAluguer(LinkedList <Aluguer> aluguer) throws IOException{
+        boolean ex = false;
+        
+        int idAl = va.validarID(aluguer, "al");
+        for (int i = 0; i < aluguer.size(); i++){
+            if(aluguer.get(i).getIdAluguer() == idAl){
+                    aluguer.remove(i);
+                    bd.delAluguer(aluguer.get(i));
+                    System.out.println("Aluguer Eliminado.");
+                    ex = true;
+                    break;
+                }
+            if((i == aluguer.size() - 1) && ex == false)
+                System.out.println("Aluguer Nao Identificado.");
+        }
     }
     
 }
