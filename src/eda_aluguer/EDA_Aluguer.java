@@ -6,6 +6,7 @@
 package eda_aluguer;
 
 import BaseDeDados.BD;
+import Objectos.Cliente;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -13,7 +14,7 @@ import java.text.ParseException;
  *
  * @author isacl
  */
-public class EDA_Aluguer {
+public class EDA_Aluguer{
 
     /**
      * @param args the command line arguments
@@ -24,6 +25,7 @@ public class EDA_Aluguer {
         m.MainMenu();
                 
         BD bd = new BD();
+        
         Cliente c = new Cliente(0, "POw", "Morooo", "1234B", "Cartao");
         
         bd.addCliente(c);
