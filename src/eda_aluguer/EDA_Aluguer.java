@@ -21,9 +21,9 @@ public class EDA_Aluguer{
      */
     public static void main(String[] args) throws IOException, ParseException {
         // TODO code application logic here
-        Menu m = new Menu();
+        /*Menu m = new Menu();
         m.MainMenu();
-                
+             */   
         BD bd = new BD();
         
         Cliente c = new Cliente(0, "POw", "Morooo", "1234B", "Cartao");

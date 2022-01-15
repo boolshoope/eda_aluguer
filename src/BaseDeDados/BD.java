@@ -66,7 +66,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-                alug = new Aluguer(rs.getInt("idAluguer"),rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"), rs.getDouble("valor"));
+                alug = new Aluguer(rs.getInt("idAluguer"), rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"), rs.getDouble("valor"));
                 lstAlug.add(alug);
             }
 
@@ -106,7 +106,6 @@ public class BD {
 
     //add
     public void addCliente(Cliente c) {
-        int id = 0;
         String query = "INSERT INTO cliente(nome,morada,bi,cartaDeConducao) VALUES(?,?,?,?);";
         try {
             PreparedStatement stmt = conexao.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -116,7 +115,7 @@ public class BD {
             stmt.setString(4, c.getCartaDeConducao());
             stmt.executeUpdate();
 
-            
+            //retornar id do auto_increment para o objecto da lista
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
             c.setIdCliente(rs.getInt(1));
@@ -131,7 +130,7 @@ public class BD {
     public void addAluguer(Aluguer a) {
         String query = "INSERT INTO aluguer(idAluguer,idCliente,idAutomovel,dataInicio,dataFim,valor) VALUES(?,?,?,?,?,?);";
         try {
-            PreparedStatement stmt = conexao.prepareStatement(query);
+            PreparedStatement stmt = conexao.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, a.getIdAluguer());
             stmt.setInt(2, a.getIdCliente());
             stmt.setInt(3, a.getIdAutomovel());
@@ -139,6 +138,12 @@ public class BD {
             stmt.setDate(5, a.getDataFim());
             stmt.setDouble(6, a.getValor());
             stmt.executeUpdate();
+
+            //retornar id do auto_increment para o objecto da lista
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            a.setIdAluguer(rs.getInt(1));
+
             stmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro de insercao da base de dados:: " + ex.getMessage());
@@ -148,7 +153,7 @@ public class BD {
     public void addAutomovel(Automovel a) {
         String query = "INSERT INTO automovel(cor,marca,modelo,cilindrada,valorDia,matricula,anoAquisicao) VALUES(?,?,?,?,?,?,?);";
         try {
-            PreparedStatement stmt = conexao.prepareStatement(query);
+            PreparedStatement stmt = conexao.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, a.getCor());
             stmt.setString(2, a.getMarca());
             stmt.setString(3, a.getModelo());
@@ -157,6 +162,12 @@ public class BD {
             stmt.setString(6, a.getMatricula());
             stmt.setInt(7, a.getAnoAquisicao());
             stmt.executeUpdate();
+            
+            //retornar id do auto_increment para o objecto da lista
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            a.setIdAutomovel(rs.getInt(1));
+            
             stmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro de insercao da base de dados:: " + ex.getMessage());
@@ -165,7 +176,7 @@ public class BD {
 
     //update
     public void updCliente(Cliente c, int idCliente) {
-        String query = "update cliente set nome=?,morada=?,bi=?,cartaDeConducao=? where idCliente=" +idCliente;
+        String query = "update cliente set nome=?,morada=?,bi=?,cartaDeConducao=? where idCliente=" + idCliente;
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -183,7 +194,7 @@ public class BD {
     }
 
     public void updAluguer(Aluguer a) {
-        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" +a.getIdAluguer();
+        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" + a.getIdAluguer();
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
@@ -226,7 +237,7 @@ public class BD {
     //delete
     public void delCliente(Cliente c) {
         try {
-            String query = "delete from cliente where idCliente= "+c.getIdCliente();
+            String query = "delete from cliente where idCliente= " + c.getIdCliente();
             PreparedStatement stmt = conexao.prepareStatement(query);
             //stmt.setInt(1, c.getIdCliente());
             stmt.execute();
