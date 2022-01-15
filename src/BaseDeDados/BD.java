@@ -66,11 +66,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-<<<<<<< HEAD
-                alug = new Aluguer(rs.getInt("idAluguer"), rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"));
-=======
                 alug = new Aluguer(rs.getInt("idAluguer"),rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"), rs.getDouble("valor"));
->>>>>>> origin/master
                 lstAlug.add(alug);
             }
 
@@ -204,13 +200,8 @@ public class BD {
             System.out.println("Erro de acualizacao de dados:: " + e.getMessage());
         }
     }
-<<<<<<< HEAD
 
-    public void updAutomovel(Automovel a) {
-=======
-    
     public void updAutomovel(Automovel a, int idAutomovel) {
->>>>>>> origin/master
         String query = "update automovel set cor=?,marca=?,modelo=?,cilindrada=?,valorDia=?"
                 + ",matricula=?,anoAquisicao=? where idAutomovel=" + idAutomovel;
         try {
