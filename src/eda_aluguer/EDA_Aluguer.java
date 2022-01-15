@@ -23,7 +23,7 @@ public class EDA_Aluguer {
         Cliente c = new Cliente(0, "POw", "Morooo", "1234B", "Cartao");
         
         bd.addCliente(c);
-        
+        System.out.println(c);
     }
     
 }

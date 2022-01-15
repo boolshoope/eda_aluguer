@@ -109,19 +109,18 @@ public class BD {
         int id = 0;
         String query = "INSERT INTO cliente(nome,morada,bi,cartaDeConducao) VALUES(?,?,?,?);";
         try {
-            PreparedStatement stmt = conexao.prepareStatement(query);
+            PreparedStatement stmt = conexao.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, c.getNome());
             stmt.setString(2, c.getMorada());
             stmt.setString(3, c.getBi());
             stmt.setString(4, c.getCartaDeConducao());
             stmt.executeUpdate();
 
-            /*
+            
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            id = rs.getInt(1);
-            System.out.println(id + "");
-*/
+            c.setIdCliente(rs.getInt(1));
+
             stmt.close();
 
         } catch (SQLException ex) {

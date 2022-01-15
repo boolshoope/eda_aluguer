@@ -10,6 +10,7 @@ package Objectos;
  * @author isacl
  */
 public class Cliente {
+
     private int idCliente;
     private String nome;
     private String morada;
@@ -26,8 +27,6 @@ public class Cliente {
 
     public Cliente() {
     }
-    
-    
 
     public int getIdCliente() {
         return idCliente;
@@ -68,10 +67,10 @@ public class Cliente {
     public void setCartaDeConducao(String cartaDeConducao) {
         this.cartaDeConducao = cartaDeConducao;
     }
-    
+
     @Override
-    public String toString(){
-        return "nome: " + nome + " morada: " + morada;
+    public String toString() {
+        return "id: " + idCliente + " nome: " + nome + " morada: " + morada;
     }
-    
+
 }
