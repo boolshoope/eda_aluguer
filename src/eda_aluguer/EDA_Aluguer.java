@@ -6,6 +6,7 @@
 package eda_aluguer;
 
 import BaseDeDados.BD;
+import Objectos.Cliente;
 
 /**
  *
@@ -18,6 +19,10 @@ public class EDA_Aluguer {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        BD bd = new BD();
+        Cliente c = new Cliente(0, "POw", "Morooo", "1234B", "Cartao");
+        
+        bd.addCliente(c);
         
     }
     

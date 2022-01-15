@@ -66,7 +66,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-                alug = new Aluguer(rs.getInt("idAluguer"),rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"));
+                alug = new Aluguer(rs.getInt("idAluguer"), rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"));
                 lstAlug.add(alug);
             }
 
@@ -106,6 +106,7 @@ public class BD {
 
     //add
     public void addCliente(Cliente c) {
+        int id = 0;
         String query = "INSERT INTO cliente(nome,morada,bi,cartaDeConducao) VALUES(?,?,?,?);";
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
@@ -114,12 +115,20 @@ public class BD {
             stmt.setString(3, c.getBi());
             stmt.setString(4, c.getCartaDeConducao());
             stmt.executeUpdate();
+
+            /*
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            id = rs.getInt(1);
+            System.out.println(id + "");
+*/
             stmt.close();
+
         } catch (SQLException ex) {
             System.out.println("Erro de insercao da base de dados:: " + ex.getMessage());
         }
     }
-    
+
     public void addAluguer(Aluguer a) {
         String query = "INSERT INTO aluguer(idCliente,idAutomovel,dataInicio,dataFim) VALUES(?,?,?,?);";
         try {
@@ -134,7 +143,7 @@ public class BD {
             System.out.println("Erro de insercao da base de dados:: " + ex.getMessage());
         }
     }
-    
+
     public void addAutomovel(Automovel a) {
         String query = "INSERT INTO automovel(cor,marca,modelo,cilindrada,valorDia,matricula,anoAquisicao) VALUES(?,?,?,?,?,?,?);";
         try {
@@ -171,7 +180,7 @@ public class BD {
             System.out.println("Erro de acualizacao de dados:: " + e.getMessage());
         }
     }
-    
+
     public void updAluguer(Aluguer a) {
         String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=? where idAluguer=" + a.getIdAluguer();
         try {
@@ -189,7 +198,7 @@ public class BD {
             System.out.println("Erro de acualizacao de dados:: " + e.getMessage());
         }
     }
-    
+
     public void updAutomovel(Automovel a) {
         String query = "update automovel set cor=?,marca=?,modelo=?,cilindrada=?,valorDia=?"
                 + ",matricula=?,anoAquisicao=? where idAutomovel=" + a.getIdAutomovel();
@@ -224,6 +233,7 @@ public class BD {
             throw new RuntimeException(e);
         }
     }
+
     public void delAluguer(Aluguer a) {
         try {
             String query = "delete from aluguer where idAluguer=?";
@@ -235,6 +245,7 @@ public class BD {
             throw new RuntimeException(e);
         }
     }
+
     public void delAutomovel(Automovel a) {
         try {
             String query = "delete from automovel where idAutomovel=?";
