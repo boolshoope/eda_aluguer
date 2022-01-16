@@ -9,6 +9,7 @@ import Objectos.*;
 import BaseDeDados.*;
 import java.io.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -44,7 +45,7 @@ public class Adicionar {
         cliente.add(c);
         bd.addCliente(c);
         
-        System.out.println("\nAluguer Registado. Identificacao do Cliente: "+c.getIdCliente());
+        System.out.println("\nAluguer Registado. ");
     
     }
     
@@ -60,39 +61,69 @@ public class Adicionar {
         a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
         automovel.add(a);  
         bd.addAutomovel(a);
-        System.out.println("\nAutomovel Registado. Identificacao de Autovel: "+a.getIdAutomovel());
+        System.out.println("\nAutomovel Registado.  ");
         
         
     }
      
     public void addAluguer(LinkedList <Aluguer> aluguer, LinkedList<Automovel> automovel, LinkedList<Cliente> cliente) throws IOException, ParseException{
+              
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd"); 
+        Date inicio, fim;
+        String dFim, dInicio; boolean alugado = false;
+           
         al = new Aluguer();
         al.setIdAutomovel(r.nextInt(999));
-        Date inicio, fim;
-        al.setIdAutomovel(va.validarID(automovel, "a"));
+     
+        int idAut = 0;
+        //l.setIdAutomovel(va.validarID(automovel, "a"));
+        do{
+            
+            idAut = va.validarID(automovel, "a");
+            for(int i=0;i<aluguer.size();i++){
+                if(aluguer.get(i).getIdAutomovel()== idAut){
+                    System.out.println("Automovel ja Alugado. Introduza novamente o Id do Automovel a ser alugado\n");                
+                    alugado = true;
+                    break;
+                }else{
+                    alugado = false;
+                }
+            }
+            
+           if(alugado == false){
+                al.setIdAutomovel(idAut);
+           }
+        
+        }while(alugado);
+        
+        
         al.setIdCliente(va.validarID(cliente, "c"));
         do{
             inicio = va.validarData("Data de Inicio de Aluguer:");
-            fim = va.validarData("Data de Fim de Aluguer:");
+            fim = va.validarData("\nData de Fim de Aluguer:");
         
             if(fim.after(inicio) == false)
                     System.out.println("Data de Inicio e Fim de Aluguer Invalida. Introduza Novamente.");
             else{
-                al.setDataInicio((java.sql.Date) inicio);
-                al.setDataFim((java.sql.Date) fim);
+                
+                dInicio = sdf.format(inicio);
+                dFim = sdf.format(fim);
+                
+                al.setDataInicio(dInicio);
+                al.setDataFim(dFim);
             }
         }while(fim.after(inicio) == false);
         al.setValor(calculoValor());
-        System.out.println("\nAluguer Registado.\nIdentificacao de Aluguer: "+al.getIdAluguer()+"\nValor de Aluguer: "+al.getValor());
+        System.out.println("\nAluguer Registado.\nValor Total a Pagar Pelo Aluguer: "+al.getValor());
         aluguer.add(al);
         bd.addAluguer(al);
     }
     
     public double calculoValor() throws IOException{
-        double valor = va.validarDouble(100, 10000, "Introduza o Valor de Aluguer do Automovel Por Dia: ");
+        double valor = va.validarDouble(100, 10000, "\nIntroduza o Valor de Aluguer do Automovel Por Dia: ");
         
-        LocalDate inicio = LocalDate.parse((al.getDataInicio()).toString());
-        LocalDate fim = LocalDate.parse((al.getDataFim()).toString());
+        LocalDate inicio = LocalDate.parse((al.getDataInicio()));
+        LocalDate fim = LocalDate.parse((al.getDataFim()));
         long dias = DAYS.between(inicio, fim);
     
         return valor * dias;

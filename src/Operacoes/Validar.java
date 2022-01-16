@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 public class Validar {
@@ -100,22 +101,34 @@ public class Validar {
     
     
    public Date validarData(String t) throws IOException, ParseException{
-        String data; 
-        System.out.println(t);
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
-        cal.set(Calendar.DAY_OF_MONTH, validarInt(1,31,"Introduza o Dia:  "));
-        cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente):  "));
-        cal.set(Calendar.YEAR,validarInt(2020, 2022,"Introduza o Ano:  "));     
        
-        data  = sdf.format(cal);
-        Date d = sdf.parse(data);
+        String data; 
+        int dia, mes, ano;
+ 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");     
+                        
+        System.out.println(t);
+        dia = validarInt(1,31,"Introduza o Dia:  ");
+        mes = validarInt(1,12,"Introduza o Mes (O numero correspondente:   ");
+        ano = validarInt(2020, 2022,"Introduza o Ano:  ");
         
-        return d;
+        Calendar d = new GregorianCalendar(ano, mes-1, dia, 0,0,0);
+        Date dataa = d.getTime();      
+        data = sdf.format(dataa);
+        
+        /*cal.set(Calendar.DAY_OF_MONTH, validarInt(1,31,"Introduza o Dia:  "));
+        cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente):  "));
+        cal.set(Calendar.YEAR,validarInt(2020, 2022,"Introduza o Ano:  "));           
+        data  = sdf.format(cal);
+        Date d = sdf.parse(data);*/
+        
+        
+        return sdf.parse(data);
     }
+   
     
     public int validarID(LinkedList lista, String tipo) throws IOException{
-        int id = 0; boolean ex = false; byte opcao;
+        int id = 0; boolean ex = false; byte opcao = 0;
         
         switch (tipo){
             case "a":
@@ -128,16 +141,21 @@ public class Validar {
                             ex = true;
                             return id;
                         }
-                        if((i == lista.size() - 1) && ex == false){
-                            opcao = validarByte((byte)0, (byte)1,"Automovel Nao Identificado."+
-                                                                  "\n1. Introduzir Novamente"+
-                                                                  "\n0. Cancelar Procedimento");
-                            if (opcao == 0)
-                                return 0;
-                        }
+                    }  
+                    
+                    if(ex == false){
+                        opcao = validarByte((byte)0, (byte)1,"\nAutomovel Nao Identificado."+
+                                                              "\n1. Introduzir Novamente"+
+                                                               "\n0. Cancelar Procedimento");  
+                                            
+                    if(opcao == 0)
+                        return 0;
+                    
                     }
-                }while (ex == false);
-                break;
+                    
+                    
+                }while (ex == false && opcao == 1);
+               break;
             
             case "c":
                 Cliente c;
@@ -149,15 +167,15 @@ public class Validar {
                             ex = true;
                             return id;
                         }
-                        if((i == lista.size() - 1) && ex == false){
+                    }
+                        if(ex == false){
                             opcao = validarByte((byte)0, (byte)1,"Cliente Nao Identificado."+
                                                                   "\n1. Introduzir Novamente"+
                                                                   "\n0. Cancelar Procedimento");
                             if (opcao == 0)
                                 return 0;
                         }
-                    }
-                }while (ex == false);
+                }while (ex == false && opcao == 1);
                 break;
              
             case "al":
@@ -170,15 +188,15 @@ public class Validar {
                             ex = true;
                             return id;
                         }
-                        if((i == lista.size() - 1) && ex == false){
+                    }
+                        if(ex == false){
                             opcao = validarByte((byte)0, (byte)1,"Aluguer Nao Identificado."+
                                                                   "\n1. Introduzir Novamente"+
                                                                   "\n0. Cancelar Procedimento");
                             if (opcao == 0)
                                 return 0;
                         }
-                    }
-                }while (ex == false);
+                }while (ex == false && opcao ==1);
                 break;
         }
         

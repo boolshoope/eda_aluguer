@@ -66,7 +66,7 @@ public class BD {
 
             while (rs.next()) {
                 // criando o objeto do banco
-                alug = new Aluguer(rs.getInt("idAluguer"), rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getDate("dataInicio"), rs.getDate("dataFim"), rs.getDouble("valor"));
+                alug = new Aluguer(rs.getInt("idAluguer"), rs.getInt("idCliente"), rs.getInt("idAutomovel"), rs.getString("dataInicio"), rs.getString("dataFim"), rs.getDouble("valor"));
                 lstAlug.add(alug);
             }
 
@@ -134,8 +134,8 @@ public class BD {
             stmt.setInt(1, a.getIdAluguer());
             stmt.setInt(2, a.getIdCliente());
             stmt.setInt(3, a.getIdAutomovel());
-            stmt.setDate(4, a.getDataInicio());
-            stmt.setDate(5, a.getDataFim());
+            stmt.setString(4, a.getDataInicio());
+            stmt.setString(5, a.getDataFim());
             stmt.setDouble(6, a.getValor());
             stmt.executeUpdate();
 
@@ -193,15 +193,15 @@ public class BD {
         }
     }
 
-    public void updAluguer(Aluguer a) {
-        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor+? where idAluguer=" + a.getIdAluguer();
+    public void updAluguer(Aluguer a, int idA) {
+        String query = "update aluguer set idCliente=?,idAutomovel=?,dataInicio=?,dataFim=?,valor=? where idAluguer=" +idA;
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);
 
             stmt.setInt(1, a.getIdCliente());
             stmt.setInt(2, a.getIdAutomovel());
-            stmt.setDate(3, a.getDataInicio());
-            stmt.setDate(4, a.getDataFim());
+            stmt.setString(3, a.getDataInicio());
+            stmt.setString(4, a.getDataFim());
             stmt.setDouble(5, a.getValor());
             stmt.execute();
 

@@ -109,7 +109,7 @@ public class Menu {
         }while(opEsc != 4);
     }
 
-    static void MainCase2() throws IOException {
+    static void MainCase2() throws IOException, ParseException {
         
         do{
         System.out.println("\nSelecione a opção:");
@@ -123,7 +123,7 @@ public class Menu {
             switch (opEsc) {
                 case 1:
                     System.out.println("|**** Alterar Alugueres ****|");
-                    //edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, tipo);
+                    AlterarAluguer();
                     break;
                 case 2:
                     System.out.println("\n|**** Alterar Clientes ****|");
@@ -136,6 +136,30 @@ public class Menu {
             }
         }while(opEsc != 4);
     }
+    
+    public static void AlterarAluguer() throws IOException, ParseException{
+        do{
+        System.out.println("\nSelecione a opção:");
+        System.out.println("1. Alterar Data De Fim e Inicio Do Aluguer");
+        System.out.println("2. Alterar o Valor A Pagar Pelo Aluguer Por Dia");
+        System.out.println("3. Voltar\n");
+        
+        opEsc = va.validarInt(0,3, ">> Sua Opcao:\t");
+        
+        switch(opEsc){
+            
+            case 1: System.out.println("\nALTERAR AS DATAS DO ALUGUER:\n");
+                edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "data");
+                break;
+             case 2:System.out.print("\nALTERAR O VALOR A PAGAR PELO ALGUGUER POR DIA:\n");
+                edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "valor");
+                break;   
+        }
+        
+        
+        }while(opEsc != 3);
+    }
+    
 
     static void MainCase3() throws IOException {
         
@@ -177,7 +201,7 @@ public class Menu {
             switch (opEsc) {
                 case 1:
                     System.out.println("|**** Eliminar Alugueres ****|");
-                    // remove.removerAluguer(lstAluguer);
+                    remove.removerAluguer(lstAluguer);
                     break;
                 case 2:
                     System.out.println("\n|**** Eliminar Clientes ****|");

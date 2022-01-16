@@ -58,20 +58,19 @@ public class Visualizar {
     
     public void visAlugueres(LinkedList<Aluguer> al){
         
-        System.out.println("\nLISTA DOS  AUTOMOVEIS CADASTRADOS\n");
+        System.out.println("\nLISTA DOS  ALUGUERES FEITOS\n");
         if(al.isEmpty()){
             System.out.print("\nNenhum Aluguer de Automovel Feito... \n");
         }else{
             System.out.println(String.format("|%-20S|", "Id do Aluguer") +String.format("%-20S|", "Id do Automovel")+String.format("%-20S|", "Id do Cliente")+
-                    String.format("%-20S|", "Data do Inicio do Aluguer")+ String.format("%-20S|", "Data do Fim do Alufuer")+String.format("%-20S|", "Valor a Pagar")
-                      +String.format("%-20S|", "Ano de Aquisicao"));
+                    String.format("%-30S|", "Data do Inicio do Aluguer")+ String.format("%-30S|", "Data do Fim do Aluguer")+String.format("%-20S|", "Valor a Pagar"));
 
            for(int i=0;i<al.size();i++){
-                  System.out.print(String.format("%-20s|",al.get(i).getIdAluguer()));
-                 System.out.print(String.format("|%-20s|", al.get(i).getIdAutomovel()));
+                  System.out.print(String.format("|%-20s|",al.get(i).getIdAluguer()));
+                 System.out.print(String.format("%-20s|", al.get(i).getIdAutomovel()));
                  System.out.print(String.format("%-20s|", al.get(i).getIdCliente()));
-                 System.out.print(String.format("%-20s|", al.get(i).getDataInicio()));
-                 System.out.print(String.format("%-20s|", al.get(i).getDataFim()));
+                 System.out.print(String.format("%-30s|", al.get(i).getDataInicio()));
+                 System.out.print(String.format("%-30s|", al.get(i).getDataFim()));
                  System.out.print(String.format("%-20s|", al.get(i).getValor())+"\n");
 
             }

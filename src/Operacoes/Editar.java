@@ -12,6 +12,7 @@ import static eda_aluguer.Menu.lstAutomovel;
 import static eda_aluguer.Menu.lstCliente;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.*;
@@ -38,7 +39,7 @@ public class Editar {
     public void alterarCliente(LinkedList<Cliente> cliente) throws IOException{
         
         int idC;
-        boolean existe = true;       
+        boolean existe = false;       
         
         idC = va.validarInt(0, 999, "ID do cliente que pretende alterar suas informacoes: ");
          for(int i=0;i<cliente.size();i++){
@@ -63,7 +64,7 @@ public class Editar {
     
     public void alterarAutomovel(LinkedList<Automovel> automovel) throws IOException{
         int idAutomovel;
-        boolean existe = true;  
+        boolean existe = false;  
         
         idAutomovel = va.validarInt(0, 999, "ID do Automovel que pretende alterar suas informacoes: ");
         for(int i=0;i<automovel.size();i++){
@@ -92,38 +93,43 @@ public class Editar {
      public void alterarAluguer(LinkedList <Aluguer> aluguer, LinkedList<Automovel> automovel, LinkedList<Cliente> cliente, String tipo) throws IOException, ParseException{
         boolean ex = false;
         int idAl = va.validarID(aluguer, "al");
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd"); 
         
         for (int i = 0; i < aluguer.size(); i++){
             if(aluguer.get(i).getIdAluguer() == idAl){
                     switch (tipo){
                         case "automovel":
                             aluguer.get(i).setIdAutomovel(va.validarID(automovel, "a"));
-                            bd.updAluguer(aluguer.get(i));
+                            bd.updAluguer(aluguer.get(i), idAl);
                             break;
                         case "cliente":
                             aluguer.get(i).setIdCliente(va.validarID(cliente, "c"));
                             break;
                         case "data":
                             Date inicio, fim;
+                            String dFim, dInicio;
+                            
                             inicio = va.validarData("Data de Inicio de Aluguer:");
                             fim = va.validarData("Data de Fim de Aluguer:");
 
                             if(fim.after(inicio) == false)
                                     System.out.println("Data de Inicio e Fim de Aluguer Invalida.");
                             else{
-                                aluguer.get(i).setDataInicio((java.sql.Date) inicio);
-                                aluguer.get(i).setDataFim((java.sql.Date) fim);
-                                bd.updAluguer(aluguer.get(i));
+                                 dInicio = sdf.format(inicio);
+                                  dFim = sdf.format(fim);
+                                
+                                aluguer.get(i).setDataInicio(dInicio);
+                                aluguer.get(i).setDataFim(dFim);
+                                bd.updAluguer(aluguer.get(i), idAl);
                             }
                             break;
                         case "valor":
                             double valor = va.validarDouble(100, 10000, "Introduza o Valor de Aluguer do Automovel Por Dia: ");
-                            LocalDate dataInicio = LocalDate.parse((aluguer.get(i).getDataInicio()).toString());
-                            LocalDate dataFim = LocalDate.parse((aluguer.get(i).getDataFim()).toString());
+                            LocalDate dataInicio = LocalDate.parse((aluguer.get(i).getDataInicio()));
+                            LocalDate dataFim = LocalDate.parse((aluguer.get(i).getDataFim()));
                             long dias = DAYS.between(dataInicio, dataFim);
                             aluguer.get(i).setValor(valor * dias);
-                            bd.updAluguer(aluguer.get(i));
+                            bd.updAluguer(aluguer.get(i), idAl);
                             break;
                             
                     }
