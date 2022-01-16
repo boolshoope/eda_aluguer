@@ -56,7 +56,7 @@ public class Editar {
            }
        }
        if(existe == false){
-            System.out.println("\nCLIENTE NAO CADASTRADO");
+            System.out.println("\nCliente Nao Identificado.");
        }
     
     
@@ -84,7 +84,7 @@ public class Editar {
            }
            
            if(existe == false)
-            System.out.println("AUTOMOVEL NAO CADASTRADO..");
+            System.out.println("Automovel Nao Identificado.");
        
        }
        
@@ -93,7 +93,7 @@ public class Editar {
      public void alterarAluguer(LinkedList <Aluguer> aluguer, LinkedList<Automovel> automovel, LinkedList<Cliente> cliente, String tipo) throws IOException, ParseException{
         boolean ex = false;
         int idAl = va.validarID(aluguer, "al");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd"); 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
         
         for (int i = 0; i < aluguer.size(); i++){
             if(aluguer.get(i).getIdAluguer() == idAl){

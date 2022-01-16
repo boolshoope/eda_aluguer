@@ -81,7 +81,7 @@ public class Menu {
         lstCliente = bd.getCiente();
     }
 
-    static void MainCase1() throws IOException, ParseException {
+    public static void MainCase1() throws IOException, ParseException {
         
         do{
         System.out.println("\nSelecione a opção:");

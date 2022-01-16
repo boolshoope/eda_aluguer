@@ -105,7 +105,7 @@ public class Validar {
         String data; 
         int dia, mes, ano;
  
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");     
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");     
                         
         System.out.println(t);
         dia = validarInt(1,31,"Introduza o Dia:  ");
