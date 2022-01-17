@@ -80,7 +80,7 @@ public class Editar {
                 a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
                 automovel.set(i, a);
                 bd.updAutomovel(a, idAutomovel);
-                //System.out.println("\nDados Do Automovel Alterados \n");
+                System.out.println("\nDados Do Automovel Alterados \n");
            }
            
            if(existe == false)
