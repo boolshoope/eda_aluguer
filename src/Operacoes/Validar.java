@@ -127,7 +127,7 @@ public class Validar {
     }
    
     
-    public int validarID(LinkedList lista, String tipo) throws IOException{
+    public int validarID(listaLigada lista, String tipo) throws IOException{
         int id = 0; boolean ex = false; byte opcao = 0;
         
         switch (tipo){
@@ -135,8 +135,8 @@ public class Validar {
                 Automovel a;
                 do{
                     id = validarInt(0, 999, "Identificacao do Automovel: ");
-                    for (int i = 0; i < lista.size(); i++){
-                        a = (Automovel) lista.get(i);
+                    for (int i = 0; i < lista.getSize(); i++){
+                        a = (Automovel) lista.getElemento(i).getInfo();
                         if (a.getIdAutomovel() == id){
                             ex = true;
                             return id;
@@ -161,8 +161,8 @@ public class Validar {
                 Cliente c;
                 do{
                     id = validarInt(0, 999, "Identificacao do Cliente: ");
-                    for (int i = 0; i < lista.size(); i++){
-                        c = (Cliente) lista.get(i);
+                    for (int i = 0; i < lista.getSize(); i++){
+                        c = (Cliente) lista.getElemento(i).getInfo();
                         if (c.getIdCliente() == id){
                             ex = true;
                             return id;
@@ -182,8 +182,8 @@ public class Validar {
                 Aluguer al;
                 do{
                     id = validarInt(0, 999, "Identificacao do Aluguer: ");
-                    for (int i = 0; i < lista.size(); i++){
-                        al = (Aluguer) lista.get(i);
+                    for (int i = 0; i < lista.getSize(); i++){
+                        al = (Aluguer) lista.getElemento(i).getInfo();
                         if (al.getIdAluguer() == id){
                             ex = true;
                             return id;

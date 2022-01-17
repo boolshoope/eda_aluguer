@@ -26,13 +26,11 @@ public class Editar {
     private Validar va;
     private Cliente c;
     private Automovel a;
-    private BD bd;
     
     public Editar(){
         va = new Validar();
         c = new Cliente();
         a = new Automovel();
-        bd = new BD();
     }
     
     
@@ -51,7 +49,6 @@ public class Editar {
                 c.setMorada(va.validarString(3, 50, "Morada/Endereco do Cliente: "));
                 c.setCartaDeConducao(va.validarString(3, 50, "Carta de Conducao: "));
                 cliente.set(i, c); 
-                bd.updCliente(c,idC);
                 System.out.print("\nDados do(a) Cliente "+idC+" Alterados Com Sucesso \n");
            }
        }
@@ -79,7 +76,7 @@ public class Editar {
                 a.setCor(va.validarString(3, 20, "Cor do Automovel: "));
                 a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia"));
                 automovel.set(i, a);
-                bd.updAutomovel(a, idAutomovel);
+         
                 System.out.println("\nDados Do Automovel Alterados \n");
            }
            
@@ -90,7 +87,7 @@ public class Editar {
        
     }
     
-     public void alterarAluguer(LinkedList <Aluguer> aluguer, LinkedList<Automovel> automovel, LinkedList<Cliente> cliente, String tipo) throws IOException, ParseException{
+     /*public void alterarAluguer(listaLigada <Aluguer> aluguer, lista<Automovel> automovel, LinkedList<Cliente> cliente, String tipo) throws IOException, ParseException{
         boolean ex = false;
         int idAl = va.validarID(aluguer, "al");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -139,6 +136,6 @@ public class Editar {
             if((i == aluguer.size() - 1) && ex == false)
                 System.out.println("Aluguer Nao Identificado.");
         }       
-    }
+    }*/
     
 }
