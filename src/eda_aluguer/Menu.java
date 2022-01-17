@@ -105,8 +105,10 @@ public class Menu {
                     System.out.println("\n|**** Adicionar Automóveis ****|\n");
                      add.addAutomovel(lstAutomovel);
                     break;
+               // case 4: break;    
             }
         }while(opEsc != 4);
+        MainMenu();
     }
 
     static void MainCase2() throws IOException, ParseException {

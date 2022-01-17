@@ -88,9 +88,10 @@ public class Adicionar {
                     opcao = va.validarByte((byte)0, (byte)1,"Automovel Ja Alugado."+
                                                                   "\n1. Introduzir Novamente"+
                                                                   "\n0. Cancelar Procedimento");
-                            if (opcao == 0)
+                            if (opcao == 0){
                                 Menu.MainCase1();
-                            else{
+                                break;
+                            }else{
                                 alugado = true;
                                 break;
                             }
