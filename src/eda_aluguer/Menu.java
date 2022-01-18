@@ -43,10 +43,11 @@ public class Menu {
             System.out.println("1. Inserir");
             System.out.println("2. Alterar");
             System.out.println("3. Listagem");
-            System.out.println("4. Eliminar");
-            System.out.println("5. Sair\n");
+            System.out.println("4. Pesquisa");
+            System.out.println("5. Eliminar");
+            System.out.println("6. Sair\n");
 
-            opEsc = va.validarInt(0,5, ">> Sua Opcao:\t");
+            opEsc = va.validarInt(0,6, ">> Sua Opcao:\t");
             switch (opEsc) {
                 case 1:
                     System.out.println("\n|**** Inserir ****|");
@@ -61,17 +62,21 @@ public class Menu {
                     MainCase3();
                     break;
                 case 4:
+                    System.out.println("\n|**** Pesquisa ****|");
+                    MainCasePesq();
+                    break;
+                case 5:
                     System.out.println("\n|**** Eliminar ****|");
                     MainCase4();
                     break;
-                case 5:
+                case 6:
                     //GravarVectores();
                     System.out.println("Obrigado.");
                     System.exit(0);
                     break;
             }
             System.out.println("");
-        } while (opEsc != 5);
+        } while (opEsc != 6);
     }
 
     static void InicializarLista() {
@@ -182,6 +187,32 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("\n|**** Listar Automóveis ****|");
+                    visualizar.visAutomovel(lstAutomovel);
+                    break;
+            }
+        }while(opEsc != 4);
+    }
+    static void MainCasePesq() throws IOException {
+        
+        do{
+            System.out.println("\nSelecione a opção:");
+            System.out.println("1. Pesquisa de Alugueres");
+            System.out.println("2. Pesquisa de Clientes");
+            System.out.println("3. Pesquisa de Automóveis");
+            System.out.println("4. Voltar\n");
+
+             opEsc = va.validarInt(0,4, ">> Sua Opcao:\t");
+            switch (opEsc) {
+                case 1:
+                    System.out.println("|**** Pesquisar Alugueres ****|");
+                    visualizar.visAlugueres(lstAluguer);
+                    break;
+                case 2:
+                    System.out.println("\n|**** Pesquisar Clientes ****|");
+                    visualizar.pesqClientes(lstCliente);
+                    break;
+                case 3:
+                    System.out.println("\n|**** Pesquisar Automóveis ****|");
                     visualizar.visAutomovel(lstAutomovel);
                     break;
             }
