@@ -19,9 +19,9 @@ import java.text.ParseException;
  */
 
 public class Menu {
-    public static LinkedList<Aluguer> lstAluguer;
-    public static LinkedList<Automovel> lstAutomovel;
-    public static LinkedList<Cliente> lstCliente;
+    public static listaLigada<Aluguer> lstAluguer = new listaLigada<>();
+    public static listaLigada<Automovel> lstAutomovel = new listaLigada<>();
+    public static listaLigada<Cliente> lstCliente = new listaLigada<>();
     public static Adicionar add  = new Adicionar();
     public static Editar edit  = new Editar();
     public static Remover remove  = new Remover();
@@ -32,7 +32,6 @@ public class Menu {
     private static int opEsc;
 
    static void MainMenu() throws IOException, ParseException {
-        InicializarLista();
 
         int opEsc = 0;
         System.out.println("|*********** SISTEMA DE ALUGUER DE UMA FROTA DE AUTOMOVEIS ***********|");
@@ -79,12 +78,6 @@ public class Menu {
         } while (opEsc != 6);
     }
 
-    static void InicializarLista() {
-        BD bd = new BD();
-        lstAluguer = bd.getAluguer();
-        lstAutomovel = bd.getAutomovel();
-        lstCliente = bd.getCiente();
-    }
 
     public static void MainCase1() throws IOException, ParseException {
         
@@ -110,8 +103,10 @@ public class Menu {
                     System.out.println("\n|**** Adicionar Automóveis ****|\n");
                      add.addAutomovel(lstAutomovel);
                     break;
+               // case 4: break;    
             }
         }while(opEsc != 4);
+        MainMenu();
     }
 
     static void MainCase2() throws IOException, ParseException {
@@ -132,11 +127,11 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("\n|**** Alterar Clientes ****|");
-                    edit.alterarCliente(lstCliente);
+                    //edit.alterarCliente(lstCliente);
                     break;
                 case 3:
                     System.out.println("\n|**** Alterar Automóveis ****|");
-                    edit.alterarAutomovel(lstAutomovel);
+                    //edit.alterarAutomovel(lstAutomovel);
                     break;
             }
         }while(opEsc != 4);
@@ -154,10 +149,10 @@ public class Menu {
         switch(opEsc){
             
             case 1: System.out.println("\nALTERAR AS DATAS DO ALUGUER:\n");
-                edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "data");
+                //edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "data");
                 break;
              case 2:System.out.print("\nALTERAR O VALOR A PAGAR PELO ALGUGUER POR DIA:\n");
-                edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "valor");
+                //edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "valor");
                 break;   
         }
         

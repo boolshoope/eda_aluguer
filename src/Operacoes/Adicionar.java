@@ -25,32 +25,29 @@ public class Adicionar {
     private Automovel a;
     private Aluguer al;
     private Random r;
-    private BD bd;
     
     public Adicionar(){
      
         r = new Random();
         va = new Validar();
-        bd = new BD();
         
        
     }
     
-     public void addCliente(LinkedList<Cliente> cliente) throws IOException{
+     public void addCliente(listaLigada<Cliente> cliente) throws IOException{
         c = new Cliente();
         c.setIdCliente(r.nextInt(999));
         c.setNome(va.validarString(3, 50, "Nome do Cliente: "));
         c.setBi(va.validarString(3, 15, "Numero de BI: "));
         c.setMorada(va.validarString(3, 50, "Morada/Endereco do Cliente: "));
         c.setCartaDeConducao(va.validarString(3, 50, "Carta de Conducao: "));
-        cliente.add(c);
-        bd.addCliente(c);
-        
-        System.out.println("\nAluguer Registado. ");
-    
+        cliente.addElemento(c);
+
+        System.out.println("\nAluguer Registado com identificacao:  "+c.getIdCliente());
     }
+     
     
-    public void addAutomovel(LinkedList<Automovel> automovel) throws IOException{
+    public void addAutomovel(listaLigada<Automovel> automovel) throws IOException{
         a = new Automovel();
         a.setIdAutomovel(r.nextInt(999));
         a.setMarca(va.validarString(3, 20, "Marca do Automovel: " ));
@@ -60,14 +57,14 @@ public class Adicionar {
         a.setCilindrada(va.validarString(3, 50, "Clindrada do Automovel: "));
         a.setCor(va.validarString(3, 20, "Cor do Automovel: "));
         a.setValorDia(va.validarDouble(1.0, 10000.0, "Valor do Aluguer Por Dia: "));
-        automovel.add(a);  
-        bd.addAutomovel(a);
-        System.out.println("\nAutomovel Registado.  ");
+        automovel.addElemento(a);  
+        System.out.println("\nAutomovel Registado com identificacao:   "+a.getIdAutomovel());
         
         
     }
+    
      
-    public void addAluguer(LinkedList <Aluguer> aluguer, LinkedList<Automovel> automovel, LinkedList<Cliente> cliente) throws IOException, ParseException{
+    public void addAluguer(listaLigada<Aluguer> aluguer, listaLigada<Automovel> automovel, listaLigada<Cliente> cliente) throws IOException, ParseException{
               
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
         Date inicio, fim;
@@ -75,22 +72,24 @@ public class Adicionar {
            
         al = new Aluguer();
         int idAut = 0;
-        
+        al.setIdAluguer(r.nextInt(999));
         do{
             
             idAut = va.validarID(automovel, "a");
             if (idAut == 0)
                 Menu.MainCase1();
             
-            for(int i = 0; i < aluguer.size(); i++){
-                if(aluguer.get(i).getIdAutomovel()== idAut){
+            for(int i = 0; i < aluguer.getSize(); i++){
+                Aluguer a = (Aluguer) aluguer.getElemento(i).getInfo();
+                if((a.getIdAutomovel() == idAut)){
                     System.out.println("\n"); 
                     opcao = va.validarByte((byte)0, (byte)1,"Automovel Ja Alugado."+
                                                                   "\n1. Introduzir Novamente"+
                                                                   "\n0. Cancelar Procedimento");
-                            if (opcao == 0)
+                            if (opcao == 0){
                                 Menu.MainCase1();
-                            else{
+                                break;
+                            }else{
                                 alugado = true;
                                 break;
                             }
@@ -130,14 +129,13 @@ public class Adicionar {
             }while(fim.after(inicio) == false);
             
             
-            for (int i = 0; i < automovel.size(); i++){
-                a = (Automovel) automovel.get(i);
+            for (int i = 0; i < automovel.getSize(); i++){
+                a = (Automovel) automovel.getElemento(i).getInfo();
                     if (a.getIdAutomovel() == idAut){
                         al.setValor(calculoValor(a.getValorDia()));
-                        System.out.println("\nAluguer Registado.\nValor de Aluguer do Automovel Por Dia: " + a.getValorDia()
+                        System.out.println("\nAluguer Registado com identificacao:  "+al.getIdAluguer()+"\nValor de Aluguer do Automovel Por Dia: " + a.getValorDia()
                                 +"\nValor Total a Pagar Pelo Aluguer: "+al.getValor());
-                        aluguer.add(al);
-                        bd.addAluguer(al);
+                        aluguer.addElemento(al);
                     }
             }
                         
