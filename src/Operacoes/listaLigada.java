@@ -6,7 +6,7 @@ package Operacoes;
  */
 public class listaLigada<Tipo> {
 
-    private Nodo<Tipo> prim, ultimo; // primeiro elemento da lista
+    private Nodo<Tipo> prim, ultimo; // primeiro e ultimo elemento da lista
     private int size;
 
     public listaLigada() {
@@ -52,15 +52,6 @@ public class listaLigada<Tipo> {
         this.size++;
     }
 
-    //retorna o tamanho da lista   
-    /*public int size(){
-        
-        while(prim.getProx() != null){
-            size++;
-        }
-     
-      return size; 
-    }*/
     //verificar se a lista esta vazia
     public boolean isEmpty() {
         if (prim == null) {
@@ -104,16 +95,16 @@ public class listaLigada<Tipo> {
         Nodo<Tipo> atual = prim; //objecto que percorre a  lista
         for (int i = 0; i < size; i++) {
             if (atual.getInfo().equals(obj)) {
-                if (size == 1) {
+                if (size == 1) { //se so tiver um elemento
                     this.prim = null;
                     this.ultimo = null;
-                } else if (atual == prim) {
+                } else if (atual == prim) { // se o objecto for o primeiro
                     this.prim = atual.getProx();
                     atual.setProx(null);
-                } else if (atual == ultimo) {
+                } else if (atual == ultimo) { // se o objecto for o ultimo
                     this.ultimo = anterior;
                     anterior.setProx(null);
-                } else {
+                } else {// se o elemento estiver no meio da lista
                     anterior.setProx(atual.getProx());
                     atual = null;
                 }
