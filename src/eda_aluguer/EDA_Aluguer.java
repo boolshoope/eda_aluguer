@@ -16,7 +16,10 @@ import java.text.ParseException;
 public class EDA_Aluguer{
 
     /**
-     * @param args the command line arguments
+     * Listas Encadeadas
+     * Chihepe, Amarilda Amâncio 
+     * Mucavele, Ludmila Emília Lourenço 
+     * Munguambe, Isac Laércio Isaias
      */
     public static void main(String[] args) throws IOException, ParseException {
   
