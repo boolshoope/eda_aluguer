@@ -5,9 +5,7 @@
  */
 package eda_aluguer;
 
-import BaseDeDados.BD;
 import Objectos.*;
-import java.util.LinkedList;
 import Operacoes.*;
 import Operacoes.Validar;
 import java.io.IOException;
@@ -127,11 +125,11 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("\n|**** Alterar Clientes ****|");
-                    //edit.alterarCliente(lstCliente);
+                    edit.alterarCliente(lstCliente);
                     break;
                 case 3:
                     System.out.println("\n|**** Alterar Automóveis ****|");
-                    //edit.alterarAutomovel(lstAutomovel);
+                    edit.alterarAutomovel(lstAutomovel);
                     break;
             }
         }while(opEsc != 4);
@@ -149,10 +147,10 @@ public class Menu {
         switch(opEsc){
             
             case 1: System.out.println("\nALTERAR AS DATAS DO ALUGUER:\n");
-                //edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "data");
+                edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "data");
                 break;
              case 2:System.out.print("\nALTERAR O VALOR A PAGAR PELO ALGUGUER POR DIA:\n");
-                //edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "valor");
+                edit.alterarAluguer(lstAluguer, lstAutomovel, lstCliente, "valor");
                 break;   
         }
         
@@ -182,7 +180,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("\n|**** Listar Automóveis ****|");
-                    visualizar.visAutomovel(lstAutomovel);
+                    visualizar.visAutomovel(lstAutomovel, lstAluguer);
                     break;
             }
         }while(opEsc != 4);
@@ -200,7 +198,7 @@ public class Menu {
             switch (opEsc) {
                 case 1:
                     System.out.println("|**** Pesquisar Alugueres ****|");
-                    visualizar.visAlugueres(lstAluguer);
+                    visualizar.pesqAluguer(lstAluguer);
                     break;
                 case 2:
                     System.out.println("\n|**** Pesquisar Clientes ****|");
@@ -208,7 +206,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("\n|**** Pesquisar Automóveis ****|");
-                    visualizar.visAutomovel(lstAutomovel);
+                    visualizar.pesqAutomovel(lstAutomovel);
                     break;
             }
         }while(opEsc != 4);

@@ -5,7 +5,6 @@
  */
 package Objectos;
 
-import java.sql.Date;
 
 /**
  *
@@ -57,22 +56,6 @@ public class Aluguer {
         this.idAutomovel = idAutomovel;
     }
 
-    /*public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public Date getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
-    }*/
-
     public String getDataInicio() {
         return dataInicio;
     }
@@ -88,8 +71,6 @@ public class Aluguer {
     public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
-    
-    
     
     public double getValor() {
         return valor;

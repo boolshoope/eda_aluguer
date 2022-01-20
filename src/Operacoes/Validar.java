@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
+
 
 public class Validar {
      BufferedReader x  = new BufferedReader(new InputStreamReader(System.in));
@@ -115,12 +115,6 @@ public class Validar {
         Calendar d = new GregorianCalendar(ano, mes-1, dia, 0,0,0);
         Date dataa = d.getTime();      
         data = sdf.format(dataa);
-        
-        /*cal.set(Calendar.DAY_OF_MONTH, validarInt(1,31,"Introduza o Dia:  "));
-        cal.set(Calendar.MONTH, validarInt(1,12,"Introduza o Mes (O numero correspondente):  "));
-        cal.set(Calendar.YEAR,validarInt(2020, 2022,"Introduza o Ano:  "));           
-        data  = sdf.format(cal);
-        Date d = sdf.parse(data);*/
         
         
         return sdf.parse(data);

@@ -9,7 +9,7 @@ import Objectos.*;
 import static eda_aluguer.Menu.va;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,25 +37,50 @@ public class Visualizar {
         }
     }
 
-    public void visAutomovel(listaLigada<Automovel> a) {
+    public void visAutomovel(listaLigada<Automovel> a, listaLigada <Aluguer> al) throws IOException {
         System.out.println("\nLISTA DOS  AUTOMOVEIS CADASTRADOS\n");
-        if (a.isEmpty()) {
+        if (a.isEmpty()) 
             System.out.print("Nenhum Auotmovel cadastrado... \n");
-        } else {
+        else{    
+            byte opcao = va.validarByte((byte)1, (byte)2, "1. Lista de Automoveis Alugados\n2. Lista de Automoveis Nao Alugados");
+            System.out.println("");
             System.out.println(String.format("|%-20S|", "Id do Automovel") + String.format("%-20S|", "Cor") + String.format("%-20S|", "Marca")
-                    + String.format("%-20S|", "Modelo") + String.format("%-20S|", "Cilindrada") + String.format("%-20S|", "Valor por dia")
-                    + String.format("%-20S|", "Ano de Aquisicao"));
-
-            for (int i = 0; i < a.getSize(); i++) {
-                System.out.print(String.format("|%-20s|", a.getElemento(i).getInfo().getIdAutomovel()));
-                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCor()));
-                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getMarca()));
-                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getModelo()));
-                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCilindrada()));
-                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getValorDia()));
-                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getAnoAquisicao()) + "\n");
-
+                                + String.format("%-20S|", "Modelo") + String.format("%-20S|", "Cilindrada") + String.format("%-20S|", "Valor por dia")
+                                + String.format("%-20S|", "Ano de Aquisicao"));
+            switch (opcao) {
+                case 1:
+                    for (int i = 0; i < a.getSize(); i++) 
+                        for (int j = 0; j < al.getSize(); j++)
+                            if(a.getElemento(i).getInfo().getIdAutomovel() == al.getElemento(j).getInfo().getIdAutomovel()){
+                                System.out.print(String.format("|%-20s|", a.getElemento(i).getInfo().getIdAutomovel()));
+                                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCor()));
+                                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getMarca()));
+                                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getModelo()));
+                                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCilindrada()));
+                                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getValorDia()));
+                                System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getAnoAquisicao()) + "\n");
+                            }
+                break;
+                
+                case 2:
+                    int count = 0;
+                    for (int i = 0; i < a.getSize(); i++)
+                        for (int j = 0; j < al.getSize(); j++)
+                            if(a.getElemento(i).getInfo().getIdAutomovel() != al.getElemento(j).getInfo().getIdAutomovel()){
+                                count++;
+                                if (count == al.getSize()){
+                                    System.out.print(String.format("|%-20s|", a.getElemento(i).getInfo().getIdAutomovel()));
+                                    System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCor()));
+                                    System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getMarca()));
+                                    System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getModelo()));
+                                    System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCilindrada()));
+                                    System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getValorDia()));
+                                    System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getAnoAquisicao()) + "\n");
+                                }
+                            }        
+                break;
             }
+       
         }
 
     }
@@ -84,19 +109,20 @@ public class Visualizar {
     public void pesqClientes(listaLigada<Cliente> cliente) {
         boolean found = false;
         System.out.println("\nPESQUISA DOS CLIENTES CADASTRADOS\n");
-        if (cliente.isEmpty()) {
+        if (cliente.isEmpty()) 
             System.out.print("\nNenhum Cliente cadastrado... \n");
-        } else {
+        else {
             int idCli = 0;
             try {
                 idCli = va.validarID(cliente, "c");
-            } catch (IOException ex) {
+            } 
+            catch (IOException ex) {
                 Logger.getLogger(Visualizar.class.getName()).log(Level.SEVERE, null, ex);
-
-                for (int i = 0; i < cliente.getSize(); i++) {
-                    if (cliente.getElemento(i).getInfo().getIdCliente() == idCli) {
-                        System.out.println(String.format("|%-20S|", "Id do Cliente") + String.format("%-20S|", "Nome") + String.format("%-20S|", "Morada")
+            }
+            System.out.println(String.format("|%-20S|", "Id do Cliente") + String.format("%-20S|", "Nome") + String.format("%-20S|", "Morada")
                                 + String.format("%-20S|", "Numero de BI") + String.format("%-20S|", "Carta de Conducao"));
+                for (int i = 0; i < cliente.getSize(); i++) 
+                    if (cliente.getElemento(i).getInfo().getIdCliente() == idCli) {
                         System.out.print(String.format("|%-20s|", cliente.getElemento(i).getInfo().getIdCliente()));
                         System.out.print(String.format("%-20s|", cliente.getElemento(i).getInfo().getNome()));
                         System.out.print(String.format("%-20s|", cliente.getElemento(i).getInfo().getMorada()));
@@ -104,12 +130,12 @@ public class Visualizar {
                         System.out.print(String.format("%-20s|", cliente.getElemento(i).getInfo().getCartaDeConducao()) + "\n");
                         found = true;
                     }
-                }
-                if (!found) {
+                
+                if (!found) 
                     System.out.print("\nCliente nao encontrado... \n");
-                }
-            }
+                
         }
+        
     }
 
     public void pesqAutomovel(listaLigada<Automovel> a) {
@@ -118,15 +144,18 @@ public class Visualizar {
         if (a.isEmpty()) {
             System.out.print("\nNenhum Automovel cadastrado... \n");
         } else {
-            int idCli = 0;
+            int idA = 0;
             try {
-                idCli = va.validarID(a, "a");
+                idA = va.validarID(a, "a");
             } catch (IOException ex) {
                 Logger.getLogger(Visualizar.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
+            System.out.println(String.format("|%-20S|", "Id do Automovel") + String.format("%-20S|", "Cor") + String.format("%-20S|", "Marca")
+                                + String.format("%-20S|", "Modelo") + String.format("%-20S|", "Cilindrada") + String.format("%-20S|", "Valor por dia")
+                                + String.format("%-20S|", "Ano de Aquisicao"));
             for (int i = 0; i < a.getSize(); i++) {
-                if (a.getElemento(i).getInfo().getIdAutomovel() == idCli) {
+                if (a.getElemento(i).getInfo().getIdAutomovel() == idA) {
                     System.out.print(String.format("|%-20s|", a.getElemento(i).getInfo().getIdAutomovel()));
                     System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getCor()));
                     System.out.print(String.format("%-20s|", a.getElemento(i).getInfo().getMarca()));
@@ -146,37 +175,37 @@ public class Visualizar {
 
     public void pesqAluguer(listaLigada<Aluguer> al) {
         boolean found = false;
-        System.out.println("\nPESQUISA DOS CLIENTES CADASTRADOS\n");
+        System.out.println("\nPESQUISA DE ALUGUERES POR DATA\n");
         if (al.isEmpty()) {
-            System.out.print("\nNenhum Cliente cadastrado... \n");
+            System.out.print("\nNenhum Aluguer Cadastrado... \n");
         } else {
-            int idCli = 0;
-            Date dt = null;
+            String data = null;
             try {
-                idCli = va.validarID(al, "c");
-                dt = va.validarData("Introduza a data: ");
-            } catch (IOException ex) {
-                Logger.getLogger(Visualizar.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
+                
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+                data = sdf.format(va.validarData("Introduza a Data de Inicio de Aluguer: "));
+                
+            } catch (IOException | ParseException ex) {
                 Logger.getLogger(Visualizar.class.getName()).log(Level.SEVERE, null, ex);
             }
+            System.out.println(String.format("|%-20S|", "Id do Aluguer") + String.format("%-20S|", "Id do Automovel")
+                    + String.format("%-20S|", "Id do Cliente")+ String.format("%-30S|", "Data do Inicio do Aluguer") 
+                    + String.format("%-30S|", "Data do Fim do Aluguer") + String.format("%-20S|", "Valor a Pagar"));
 
-            /*for (int i = 0; i < al.size(); i++) {
-                if (al.get(i).getDataFim()== idCli) {
-                    System.out.println(String.format("|%-20S|", "Id do Aluguer") + String.format("%-20S|", "Id do Automovel") + String.format("%-20S|", "Id do Cliente")
-                            + String.format("%-30S|", "Data do Inicio do Aluguer") + String.format("%-30S|", "Data do Fim do Aluguer") + String.format("%-20S|", "Valor a Pagar"));
-
-                    System.out.print(String.format("|%-20s|", al.get(i).getIdAluguer()));
-                    System.out.print(String.format("%-20s|", al.get(i).getIdAutomovel()));
-                    System.out.print(String.format("%-20s|", al.get(i).getIdCliente()));
-                    System.out.print(String.format("%-30s|", al.get(i).getDataInicio()));
-                    System.out.print(String.format("%-30s|", al.get(i).getDataFim()));
-                    System.out.print(String.format("%-20s|", al.get(i).getValor()) + "\n");
+            for (int i = 0; i < al.getSize(); i++) {
+                if (al.getElemento(i).getInfo().getDataInicio().equalsIgnoreCase(data)) {
+                    Aluguer aluguer = al.getElemento(i).getInfo();
+                    System.out.print(String.format("|%-20s|",aluguer.getIdAluguer()));
+                    System.out.print(String.format("%-20s|", aluguer.getIdAutomovel()));
+                    System.out.print(String.format("%-20s|", aluguer.getIdCliente()));
+                    System.out.print(String.format("%-30s|", aluguer.getDataInicio()));
+                    System.out.print(String.format("%-30s|", aluguer.getDataFim()));
+                    System.out.print(String.format("%-20s|", aluguer.getValor()) + "\n");
                     found = true;
                 }
-            }*/
+            }
             if (!found) {
-                System.out.print("\nCliente nao encontrado... \n");
+                System.out.print("\nAluguer nao encontrado... \n");
             }
         }
     }

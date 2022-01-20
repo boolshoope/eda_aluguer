@@ -5,9 +5,7 @@
  */
 package Operacoes;
 
-import BaseDeDados.BD;
 import Objectos.*;
-import java.util.*;
 import java.io.*;
 
 /**
@@ -17,7 +15,7 @@ import java.io.*;
 
 public class Remover {
     
-    private Validar va;
+    private final Validar va;
   
     public Remover(){
         va = new Validar();

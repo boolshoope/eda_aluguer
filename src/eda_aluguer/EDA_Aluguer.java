@@ -5,9 +5,7 @@
  */
 package eda_aluguer;
 
-import BaseDeDados.BD;
-import Objectos.Cliente;
-import Operacoes.listaLigada;
+
 import java.io.IOException;
 import java.text.ParseException;
 

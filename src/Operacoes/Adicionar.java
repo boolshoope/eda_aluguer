@@ -6,7 +6,6 @@
 package Operacoes;
 import java.util.*;
 import Objectos.*;
-import BaseDeDados.*;
 import eda_aluguer.Menu;
 import java.io.*;
 import java.text.ParseException;
@@ -20,11 +19,11 @@ import static java.time.temporal.ChronoUnit.DAYS;
  */
 public class Adicionar {
     
-    private Validar va;
+    private final Validar va;
     private Cliente c;
     private Automovel a;
     private Aluguer al;
-    private Random r;
+    private final Random r;
     
     public Adicionar(){
      
@@ -43,7 +42,7 @@ public class Adicionar {
         c.setCartaDeConducao(va.validarString(3, 50, "Carta de Conducao: "));
         cliente.addElemento(c);
 
-        System.out.println("\nAluguer Registado com identificacao:  "+c.getIdCliente());
+        System.out.println("\nCliente Registado com identificacao:  "+c.getIdCliente());
     }
      
     
@@ -65,10 +64,11 @@ public class Adicionar {
     
      
     public void addAluguer(listaLigada<Aluguer> aluguer, listaLigada<Automovel> automovel, listaLigada<Cliente> cliente) throws IOException, ParseException{
-              
+          
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
         Date inicio, fim;
         String dFim, dInicio; boolean alugado = false; byte opcao;
+        int posicao;
            
         al = new Aluguer();
         int idAut = 0;
@@ -128,6 +128,7 @@ public class Adicionar {
                 }
             }while(fim.after(inicio) == false);
             
+            posicao = posicaoAluguer(aluguer);
             
             for (int i = 0; i < automovel.getSize(); i++){
                 a = (Automovel) automovel.getElemento(i).getInfo();
@@ -135,7 +136,7 @@ public class Adicionar {
                         al.setValor(calculoValor(a.getValorDia()));
                         System.out.println("\nAluguer Registado com identificacao:  "+al.getIdAluguer()+"\nValor de Aluguer do Automovel Por Dia: " + a.getValorDia()
                                 +"\nValor Total a Pagar Pelo Aluguer: "+al.getValor());
-                        aluguer.addElemento(al);
+                        aluguer.addOrdenado(posicao, al);
                     }
             }
                         
@@ -148,5 +149,16 @@ public class Adicionar {
         long dias = DAYS.between(inicio, fim);
     
         return valorDia * dias;
+    }
+    
+    public int posicaoAluguer (listaLigada<Aluguer> aluguer){
+        LocalDate  dataPosActual, dataAluguerNovo = LocalDate.parse(al.getDataInicio());
+        int pos = 0;
+        for (int i = 0; i < aluguer.getSize(); i++){
+             dataPosActual = LocalDate.parse(aluguer.getElemento(i).getInfo().getDataInicio());
+             if (dataPosActual.isAfter(dataAluguerNovo) || dataPosActual.isEqual(dataAluguerNovo))
+                 return i;    
+        }
+        return pos;
     }
 }

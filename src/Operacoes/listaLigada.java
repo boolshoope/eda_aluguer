@@ -3,6 +3,7 @@ package Operacoes;
 /**
  *
  * @author Amarilda Chihepe
+ * @param <Tipo>
  */
 public class listaLigada<Tipo> {
 
@@ -40,7 +41,7 @@ public class listaLigada<Tipo> {
 
     //Insercao no inicio na lista
     public void addElemento(Tipo i) {
-        Nodo<Tipo> novo = new Nodo<Tipo>();
+        Nodo<Tipo> novo = new Nodo<>();
         novo.setInfo(i);
         if (this.prim == null && this.ultimo == null) {
             this.prim = novo;
@@ -115,5 +116,33 @@ public class listaLigada<Tipo> {
             atual = atual.getProx();
         }
     }
+    
+    public void addOrdenado(int pos, Tipo tipo){
+        /*cria novo elemento*/
+        Nodo<Tipo> novo = new Nodo<>();
+        novo.setInfo(tipo);
+        /*objecto para o elemento anterior*/
+        Nodo <Tipo> anterior = null;
+        /*objecto para percorrer a lista*/
+        Nodo <Tipo> p = prim;
+
+        /*procura elemento na lista, guardando anterior*/
+        for (int i = 0; i < pos; i++) 
+            if (p != null){
+                anterior = p;
+                p = p.getProx();
+            }
+        /*encadeia o elemento*/
+        if(anterior == null){ /*insere o elemento no inicio*/
+            novo.setProx(prim);
+            prim = novo;
+            size++;
+        }else{ /*insere elemento no meio da lista*/
+            novo.setProx(anterior.getProx()); //o proximo do nodo novo sera o proximo do nodo anterior,
+            anterior.setProx(novo); //como se estivesse a abrir espaco no meio para o nodo novo
+            size++;         // e o proximo do nodo anterior sera o no novo
+            
+        }
+ }
 
 }
